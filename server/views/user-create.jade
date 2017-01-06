@@ -1,0 +1,31 @@
+include layout
+
+doctype html
+html
+    +head()
+        script.
+            var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+            var user = !{typeof(user) != 'undefined' ? JSON.stringify(user) : 'undefined'};
+        script(src="/js/user-create.js")
+        style.
+            body {
+                background-color: #05d657;
+                color: #fff;
+                //padding-bottom: 40px;
+            }
+            select.role-field {
+                margin-bottom: 10px;
+            }
+            .profile-form-container a {
+                color: #fff;
+            }
+    +body()
+        .content-container
+            .page-content
+                h3.text-center=title
+                div(style="max-width: 600px; margin: auto; margin-top: 20px;")
+                    .profile-form-container
+                        form.form-horizontal.flex-form(role="form")
+                    button.col-xs-12.btn.button-black.save-button Save
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

@@ -1,0 +1,60 @@
+include layout
+
+doctype html
+html
+    +head()
+        include widgets/product-summary-widget
+        script(src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&v=3.14")
+        script(src="/js/product-where-to-buy.js")
+        script.
+            var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+            var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+            var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+
+        style.
+            .well {
+                border-radius: 6px;
+                margin-top: 20px;
+            }
+            .google-maps-container {
+                color: #333;
+            }
+            .directions-panel-parent {
+                padding: 0;
+            }
+            .directions-panel {
+                background-color: #fff;
+            }
+            .sName {
+                width: 100%;
+                font-size: 22px !important;
+                line-height: 1.3em;
+                cursor: pointer;
+
+                margin-bottom: 0px;
+                border-top: 1px solid #CCC;
+                margin-top: 20px;
+                cursor: pointer;
+            }
+            .storeDiv:first-child .sName {
+                margin-top: 0;
+            }
+
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+    +body()
+        .content-container
+            .page-content
+                .container
+                    .product-result
+                    #find(style="width: 100%;").well.map-container
+                    div(style="height: 1px;")
+                    //-.text-center(style="margin-top: 50px;")
+                        | rate this page
+                        .star-container
+                    .text-center
+                        .rating-container
+                    .clearfix
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

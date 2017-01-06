@@ -1,0 +1,101 @@
+include ../widgets/brand-select
+include ../widgets/file-upload-widget
+
+block append scripts
+    link(rel='stylesheet', href='/stylesheets/bootstrap-colorpicker.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-datepicker.min.css')
+    script(src="/js/tpl/bootstrap-colorpicker.min.js")
+    script(src='/js/tpl/bootstrap-datepicker.min.js')
+    script(src="/js/tpl/jquery.elastic.source.js")
+    script(src='/js/tpl/moment.min.js')
+    script.
+        $(function() {
+            var color_indicator = $('.color-indicator');
+
+            color_indicator.colorpicker().on('hidePicker', function (ev) {
+                //alert(ev.color.toHex());
+            }).on('changeColor', function (ev) {
+                color_indicator.attr('data-color', ev.color.toHex());
+                color_indicator.css('background-color', ev.color.toHex());
+            });
+        });
+    style.
+        .color-indicator {
+            width: 10px;
+            height: 10px;
+            margin-left: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+        .use-master-container {
+            margin-left: 10px;
+            margin-top: 5px;
+        }
+
+
+mixin product_self_help_form_contents(caller, product)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Instructions
+        .col-xs-12.col-sm-10
+            textarea.form-control.instructions= product.instructions
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Brand Message
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="A plain-text description of what the brand wants to communicate about this product.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            textarea.form-control.brand-message= product.brand_message
+    .form-group
+        label.col-xs-12.col-sm-2.control-label FAQ
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="An HTML FAQ.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            textarea.form-control.faq= product.faq
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Ingredients
+        .col-xs-12.col-sm-10
+            textarea.form-control.ingredients= product.ingredients
+            //-
+                -var ingredients_string = '';
+                    -if(typeof(product.ingredients) != 'undefined')
+                        -each ingredient in product.ingredients
+                            -ingredients_string += (ingredients_string.length > 0 ? ', ' + ingredient : ingredient);
+                .tag-list.ingredients(data-ingredients=ingredients_string)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Map Search Types
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="For use with Google Maps when Where To Buy service has not been arranged.  Choose Google Places categories for the locations at which the product can be found.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            -var map_search_types_string = '';
+                -if(typeof(product.map_search_types) != 'undefined')
+                    -each map_search_type in product.map_search_types
+                        -map_search_types_string += (map_search_types_string.length > 0 ? ', ' + map_search_type : map_search_type);
+            .tag-list.map-search-types(data-map-search-types=map_search_types_string)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Master EAN
+            .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The master EAN for the product. When provided, relevant fields from the product will be overwritten by those of the master product.  Applies only to third-party product info queries.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            .master-ean-container
+
+                //- grab the master EAN, and various flags that tell which master EANs are set
+                - has_product_info_master = false;
+                - has_locator_master = false;
+                - if(product.master_ean)
+                    - first_master = product.master_ean.locator;
+                    - if(!first_master)
+                        - first_master = product.master_ean.product_info;
+                    - if(product.master_ean.product_info && product.master_ean.product_info.length > 0)
+                        - has_product_info_master = true;
+                    - if(product.master_ean.locator && product.master_ean.locator.length > 0)
+                        - has_locator_master = true;
+                - else
+                    - first_master = ""
+                
+                input.form-control.master-ean.pull-left(type="text", style="width: 135px;", maxlength=13, value= first_master ? first_master : "")
+                .use-master-container.pull-left
+                    input(type="checkbox", style="margin-right: 6px;", checked=has_product_info_master).master-product-info
+                    | Product Info
+                    input(type="checkbox", style="margin-right: 6px; margin-left: 16px;", checked=has_locator_master).master-locator
+                    | Where to Buy

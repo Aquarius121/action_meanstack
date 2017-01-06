@@ -1,0 +1,20 @@
+include ./table-pager
+include ./sortable-table
+
+mixin products_table(hide_filters, is_admin)
+    div
+        table.table.table-bordered.table-striped.tablesorter-hover.products-table(style="display: none;")
+            thead
+                tr
+                    th(class=(hide_filters ? 'filter-false' : '')) Name
+                    th(class=(hide_filters ? 'filter-false' : '')) Brand
+                    -if(is_admin)
+                        th(class=(hide_filters ? 'filter-false' : ''), style="width: 75px;") Active
+                        th(class=(hide_filters ? 'filter-false' : ''), style="width: 75px;") Images
+                        th(class=(hide_filters ? 'filter-false' : ''), style="width: 75px;") Videos
+                    th(class=(hide_filters ? 'filter-false' : ''), style="width: 120px;") EAN
+            tbody
+
+block append scripts
+    script(src='/js/tpl/purl.js', type='text/javascript')
+    script(src='/js/widgets/tables/products-table.js', type='text/javascript')

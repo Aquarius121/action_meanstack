@@ -1,0 +1,26 @@
+li.navbar-widget(style="cursor: pointer;")
+    a.dropdown-toggle(href="/products/find/view")
+        img(src="/img/magnifying-glass.png", style="height: 38px; margin-top: -3px;")
+        //-i.icon-caret-down
+    //-a.dropdown-toggle(data-toggle="dropdown")
+        img(src="/img/magnifying-glass.png", style="height: 38px; margin-top: -3px;")
+        i.icon-caret-down
+    //-ul.user-menu.pull-left.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer
+        li
+            a(href=typeof(caller) == 'undefined' ? "/" : "/products/find/view")
+                i.icon-search
+                |Search
+        li
+            a.scan-link
+                i.icon-barcode
+                |Scan
+
+
+block append scripts
+    script.
+        $(function() {
+            $('.scan-link').click(function() {
+                window.close();
+                window.location.href="actionapp://home";
+            });
+        });

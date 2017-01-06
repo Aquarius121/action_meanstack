@@ -1,0 +1,137 @@
+include layout
+
+doctype html
+html
+    +head()
+        include ./widgets/products-table
+        include ./widgets/file-upload-widget
+        include ./widgets/image-gallery-widget
+        include ./widgets/css-editor-widget
+        include ./forms/brand-form-contents
+        include ./widgets/brand-styles-widget
+        link(rel='stylesheet', href='/stylesheets/bootstrap-colorpicker.min.css')
+        script(src="/js/tpl/bootstrap-colorpicker.min.js")
+        script(src="/js/tpl/ckeditor/ckeditor.js")
+        script(src="/js/forms/brand-faq-config-form.js")
+        script(src="/js/forms/brand-locator-config-form.js")
+        script(src="/js/forms/brand-product-details-source-config-form.js")
+        script(src="/js/brand-edit.js")
+        script.
+            $(function() {
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'new Object();'};
+                brand_page.init(brand);
+            });
+
+    +body()
+        .content-container
+            .page-content
+                div
+                    h3.pull-left= 'Edit Brand "' + brand.name + '"'
+                    .pull-left(style="margin-left: 10px; margin-top: 10px;")
+                        a(href=brand.link)
+                            i.icon-link
+                    .clearfix
+                    -if(typeof(owner) != 'undefined' && owner != null)
+                        h4.pull-left= 'Owner: '
+                        .pull-left(style="margin-left: 10px; margin-top: 10px;")
+                            a(href="/brand-owner/view/"+owner._id.toHexString())= owner.name
+                            a(href=owner.link, style="margin-left: 10px;")
+                                i.icon-link
+                        a(href=owner.wiki, style="margin-left: 10px; margin-top: 10px;").pull-left
+                            i.icon-globe
+                        .clearfix
+                hr(style="margin: 5px 0 15px 0")
+                ul.nav.nav-tabs
+                    li.active
+                        a(href="#brand-products", data-toggle="tab") Products
+                    li
+                        a(href="#brand-properties", data-toggle="tab").show-properties Properties
+                    li
+                        a(href="#brand-locator", data-toggle="tab").show-styles Locator
+                    li
+                        a(href="#brand-faq", data-toggle="tab").show-styles FAQ
+                    li
+                        a(href="#brand-product-details", data-toggle="tab").show-styles Product Details
+                    li
+                        a(href="#brand-content", data-toggle="tab").show-content Content
+                    li
+                        a(href="#brand-styles", data-toggle="tab").show-styles Styles
+                .tab-content
+                    .tab-pane.fade.active.in#brand-products
+                        .pull-left
+                            -if(caller && (caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager'))
+                                a.btn.btn-sm.btn-default(href="/brand/" + brand._id + "/import" style="margin-right: 5px;") Import
+                            -if(caller && (caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager'))
+                                button.btn.btn-sm.btn-default.export-xlsx(style="margin-right: 5px;") Export xlsx
+                                button.btn.btn-sm.btn-default.export-csv(style="margin-right: 5px;") Export csv
+                            div.pull-right.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="You can import products from an Excel spreadsheet, or a CSV ('Comma Separated Values') file,  using a pre-defined template. To get the template or to export the current products for this brand click the export button for the type of file you want to import.")
+                                i.fa.fa-question(style="margin-left: -1px;")
+                        .pull-right
+                            -if(caller && (caller.role == 'admin' || caller.role == 'action-admin'))
+                                a.btn.btn-sm.btn-warning.transfer-products(href="/brand/view/" + brand._id + '?action=transfer-products',style="margin-right: 5px;") Transfer products
+                            -if(caller && (caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager'))
+                                a.btn.btn-sm.btn-warning.unfeature-all(style="margin-right: 5px;") Deactivate All
+                            -if(caller && (caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager'))
+                                a.btn.btn-sm.btn-warning.feature-all(style="margin-right: 5px;") Activate All
+                            -if(caller && (caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager'))
+                                a.btn.btn-sm.btn-success(href="/product/create/view?brand=" + brand._id, style="") Create Product
+                        .clearfix
+                        .brand-product-container(style="margin-top: 10px;")
+                            +products_table(undefined, true)
+                        mixin table_pager()
+                    .tab-pane.fade#brand-properties
+                        form.form-horizontal
+                            +brand_form_contents(brand)
+                        button.btn.btn-sm.btn-cancel.pull-right.cancel-properties(style="margin-top: 10px; margin-left: 10px;") Cancel
+                        button.btn.btn-sm.btn-success.pull-right.save-properties(style="margin-top: 10px;") Save
+                        .clearfix
+                    .tab-pane.fade#brand-content
+                        form
+                            .pull-right
+                                .content-fileupload-container
+                            button.btn.btn-sm.btn-danger.pull-right.delete-unused-content(style="margin-right: 5px;")
+                                i.icon.icon-trash
+                                | Delete unused
+                        .clearfix
+                        .contents
+                    .tab-pane.fade#brand-styles
+                        .pull-left.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="How products of this brand are rendered.  It may help to have another tab open that contains a product from this brand, then refreshing when changes are made.")
+                            i.fa.fa-question(style="margin-left: -1px;")
+                        .clearfix
+                        .row
+                            +brand_styles_widget()
+                        .row
+                            .col-xs-6
+                                h4.pull-left Custom Styles
+                                div.pull-left.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="To maximize capabilities, we allow CSS to be entered directly.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                                .clearfix
+                                .brand-styles(style="width: 100%;")
+                        .clearfix
+                        button.btn.btn-sm.btn-cancel.cancel-button.pull-right(style="margin-top: 10px; margin-left: 10px;") Cancel 
+                        button.btn.btn-sm.btn-success.save-button.pull-right(style="margin-top: 10px;") Save
+                        .clearfix
+                    .tab-pane.fade#brand-locator
+                        .brand-locator-container
+                        .clearfix
+                        button.btn.btn-sm.btn-cancel.cancel-locator-button.pull-right(style="margin-top: 10px; margin-left: 10px;") Cancel
+                        button.btn.btn-sm.btn-success.save-locator-button.pull-right(style="margin-top: 10px;") Save
+                        .clearfix
+                    .tab-pane.fade#brand-faq
+                        .brand-faq-container
+                        .clearfix
+                        button.btn.btn-sm.btn-cancel.cancel-faq-button.pull-right(style="margin-top: 10px; margin-left: 10px;") Cancel 
+                        button.btn.btn-sm.btn-success.save-faq-button.pull-right(style="margin-top: 10px;") Save
+                        .clearfix
+                    .tab-pane.fade#brand-product-details
+                        .brand-product-details-container
+                        .clearfix
+                        button.btn.btn-sm.btn-cancel.cancel-product-source-button.pull-right(style="margin-top: 10px; margin-left: 10px;") Cancel
+                        button.btn.btn-sm.btn-success.save-product-source-button.pull-right(style="margin-top: 10px;") Save
+                        .clearfix
+                .text-center(style="margin-top: 10px;")
+                    button.btn.btn-sm.btn-danger.delete-brand-button.hidden Delete Brand
+
+
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

@@ -1,0 +1,109 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/bootstrap-datepicker.min.css')
+        script(src='/js/tpl/highcharts.js')
+        script(src='/js/tpl/bootstrap-datepicker.min.js')
+        script(src='/js/widgets/table-pager.js')
+        script(src='/js/widgets/product-select.js')
+        script(src='/js/widgets/date-range-widget.js')
+        script(src='/js/widgets/reports/factor-by-factor-drilldown-chart.js')
+        script(src='/js/widgets/reports/factor-by-factor-chart.js')
+        script(src='/js/widgets/reports/favorites-by-factor-chart.js')
+        script(src='/js/widgets/reports/favorite-brands-chart.js')
+        script(src='/js/widgets/reports/logins-by-platform-chart.js')
+        script(src='/js/widgets/reports/opt-ins-table.js')
+        script(src='/js/widgets/reports/registrations-by-platform-chart.js')
+        script(src='/js/widgets/reports/monthly-unique-users-graph.js')
+        script(src='/js/widgets/reports/weekly-unique-users-graph.js')
+
+        script(src='/js/widgets/reports/report-favorites-table.js')
+        script(src="/js/report-user-profile.js")
+
+        include ./widgets/sortable-table
+        include ./widgets/brand-select
+
+        style.
+            .chart-container {
+                width: 300px;
+                height: 200px;
+            }
+            .chart-container-wrapper {
+                width: 300px;
+                height: 250px;
+            }
+            .control-panel {
+                position: fixed;
+                top: 100;
+            }
+            .favorites-report {
+                width: 332px;
+                margin-right: 20px;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                -if(caller.role == 'brand-manager')
+                    .managed-brands.hidden(data-brands=caller.managed_brands.toString())
+                h2.text-center=title
+                .text-center Note: Statistics are not yet available for the current day
+                .col-xs-4.col-md-3
+                    .control-panel
+                        form.pull-left(style="margin-bottom: 20px;")
+                            .date-range-container
+                            .clearfix
+                                .product-select-container
+                        .clearfix
+                        | Drilldown Property
+                        .clearfix
+                        select.drilldown(style="margin-top: 5px;")
+                            option(value="age") Age
+                            option(value="gender") Gender
+                            option(value="state") State
+                            option(value="zip") Zip
+                        .clearfix(style="margin-bottom: 15px;")
+                        .brand-filter
+                            | Brand Filter
+                            .clearfix
+                            +brand_select()
+                .col-xs-8.col-md-9
+                    h3 Platform Usage
+                    | Note: Platform usage statistics are system-wide and are not brand dependent
+                    .clearfix(style="margin-bottom: 10px;")
+                    .well.pull-left
+                        .logins-platform-percent.chart-container-wrapper.text-center
+                            .chart-container.pull-left
+                    .well(style="margin-left: 20px;").pull-left
+                        .registrations-platform-amount.chart-container-wrapper.text-center
+                            .chart-container.pull-left
+                            .clearfix
+                            .registration-count(style="margin-top: 20px;")
+                    .clearfix
+                    hr
+                    h3 Favorites
+                    .favorites-report.pull-left
+                        -if(caller && (caller.role == 'admin' || caller.role == 'action-admin'))
+                            .text-center Top Favorite Products
+                        .table-container
+                    .favorites-brand-container.hidden
+                        .well.pull-left
+                            .favorites-factor-container.text-center(style="width: 300px; height: 250px;")
+                                .favorites-by-factor(style="width: 300px; height: 200px;").pull-left
+                    .clearfix
+                    hr
+                    h3 Opt-ins
+                    .opt-ins-table-container.pull-left
+                    .clearfix
+                    hr
+                    h3 Unique Users
+                    | Note: Unique user statistics are system-wide and are not brand dependent
+                    .well(style="margin-top: 10px;")
+                        .unique-users-container.text-center
+                    | Note: A minimum of 3 full months of data is queried
+                    .well(style="margin-top: 10px;")
+                        .unique-users-weekly-container.text-center
+                    | Note: A minimum of 3 full weeks of data is queried
+                .clearfix

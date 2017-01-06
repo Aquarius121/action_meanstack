@@ -1,0 +1,72 @@
+include ../widgets/brand-select
+include ../widgets/file-upload-widget
+
+block append scripts
+    script(src="/js/tpl/jquery.elastic.source.js")
+    script.
+        $(function() {
+        });
+
+mixin product_self_help_media_form_contents(caller, product)
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Background Style
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="Preferred method for drawing background for product info screens.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            .background-style-container.form-control
+                - image_style = 'auto'
+                - if(product && product.image_style)
+                    - image_style = product.image_style;
+                input(type="radio", data-type="auto", name="background-style", style="margin-right: 6px;", checked=(image_style == 'auto')).best-image
+                | Auto
+                input(type="radio", data-type="product_image", name="background-style", style="margin-right: 6px; margin-left: 16px;", checked=(image_style == 'product_image')).product-image
+                | Product Image
+                input(type="radio", data-type="brand_image", name="background-style", style="margin-right: 6px; margin-left: 16px;", checked=(image_style == 'brand_image')).brand-image
+                | Brand Image
+                input(type="radio", data-type="color", name="background-style", style="margin-right: 6px; margin-left: 16px;", checked=(image_style[0] == '#')).color
+                | Color
+                .color-indicator(data-color=(image_style[0] == '#' ? image_style : '#fff'), style="background-color: " + (image_style[0] == '#' ? image_style : '#fff'))
+   hr
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Product Images
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="Images for the product, with the most prominent image first.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            .tag-list.product-images(style="margin-right: 90px;")
+            .product-upload-container(style="width: 80px; position: absolute; right: 12px; top: 0;")
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Promo Images
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="Promotional images for the product, with the most prominent image first.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            .tag-list.promo-images(style="margin-right: 90px;")
+            .promo-image-upload-container(style="width: 80px; position: absolute; right: 12px; top: 0;")
+   //.form-group
+        label.col-xs-12.col-sm-2.control-label Product Labels
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="URLs to product labels that are to appear on the product information page.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            -var nutrition_string = '';
+            -if(typeof(product.nutrition_labels) != 'undefined')
+                -each nutrition_label in product.nutrition_labels
+                    -nutrition_string += (nutrition_string.length > 0 ? ', ' + nutrition_label : nutrition_label);
+            .tag-list.nutrition-labels(data-labels=nutrition_string, style="margin-right: 90px;")
+            .nutrition-label-upload-container(style="width: 80px; position: absolute; right: 12px; top: 0;")
+
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Product Labels
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="A message that is shown in a dialog when a user scans or views this product.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            textarea.form-control.nutrition(name="Nutrition")= product.nutrition_labels
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Promo Videos
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="URLs to videos that are to appear on the product's Brand Messaging page.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            //-var video_string = '';
+                -if(typeof(product.promo_videos) != 'undefined')
+                    -each video_link in product.promo_videos
+                        -video_string += (video_string.length > 0 ? ', ' + video_link : video_link);
+            .tag-list.promo-videos(style="margin-right: 90px;", data-videos=video_string)
+            .promo-videos-upload-container(style="width: 80px; position: absolute; right: 12px; top: 0;")

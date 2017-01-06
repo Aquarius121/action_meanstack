@@ -1,0 +1,11 @@
+include layout
+
+doctype html
+html
+    +head()
+    +body()
+        .content-container
+            .page-content
+                h3.text-center Coming attraction!  Coming soon!
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

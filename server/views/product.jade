@@ -1,0 +1,160 @@
+include layout
+
+//- db.ean.find({'pod_attributes.brand': {$exists: true}})
+//- 0040000002239
+
+doctype html
+html
+    +head()
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+        style.
+            .array-button {
+                white-space: nowrap;
+                width: 260px;
+                text-align: center;
+                margin: auto;
+                vertical-align: text-top;
+            }
+
+            .array-button:not(:first-child) {
+                margin-top: 10px;
+            }
+
+            .array-button > a > .img-container {
+                width: 100px;
+                display: inline-block;
+                text-align: center;
+            }
+
+            .array-button > a > .img-container > img {
+                max-height: 30px;
+            }
+
+            .menu-button {
+                width: 100%;
+                background-color: #05d657;
+                color: #fff;
+                margin: auto;
+                margin-bottom: 6px;
+                border-radius: 15px;
+                word-wrap: break-word;
+                white-space: normal;
+            }
+
+            .menu-button > img {
+                max-width: 24px;
+                max-height: 24px;
+            }
+
+            .product-menu-widget.horizontal {
+                max-width: 400px;
+                margin: auto;
+                background-color: #333;
+                margin-top: -10px;
+                text-align: center;
+            }
+
+            .product-menu-widget.horizontal > a {
+                margin-right: 10px;
+                margin-left: 10px;
+                color: white;
+                font-size: 18px;
+            }
+
+            .product-promo-container {
+                text-align: center;
+            }
+            .product-promo-container > img {
+                max-width: 400px;
+            }
+
+        include widgets/product-summary-widget
+        include widgets/product-accordion-widget
+        include widgets/product-image-header
+        script(src="/js/product.js")
+        script.
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+                var birth_year = caller.dob.substring(0,4);
+                var caller_age = new Date().getFullYear() - parseInt(birth_year);
+                if(brand.minimum_age && parseInt(brand.minimum_age) > caller_age)
+                {
+                    alert_modal.show("Error","We're sorry, but regulations require that you must be at least " + brand.minimum_age +    " years old to access this product.",function(){
+                        window.history.back();
+
+                    })
+                    return;
+                }
+                var pageContainer = $('body');
+
+                product_summary_widget.init('', product, brand, pageContainer.find('.product-result'), caller);
+                product_accordion_widget.init(product, brand, pageContainer.find('.accordion-container'));
+
+                auto_message_utils.tryShowAutoMessage({product: product, brand: brand});
+                general_util.reportProductView({
+                    brand: brand,
+                    product: product
+                });
+
+                product_jumbotron_widget.init({
+                    container: pageContainer.find('.product-image-jumbotron-container'),
+                    product: product,
+                    brand: brand,
+                    remote_url: '',
+                    caller: caller
+                });
+
+                var is_horizontal = (typeof(product.promo_images) != 'undefined' && product.promo_images.length > 0);
+
+                product_menu_widget.init({
+                    horizontal: is_horizontal,
+                    show_product_info: true,
+                    container: pageContainer.find('.product-menu-container'),
+                    product: product,
+                    brand: brand,
+                    onProductInfo: function() {
+                        window.location.href = "/product/info/view/" + product.ean;
+                    },
+                    onFAQ: function() {
+                        window.location.href = "/product/faq/view/" + product.ean;
+                    },
+                    onContactUs: function() {
+                        window.location.href = "/message/send/view?ean=" + product.ean;
+                    },
+                    onWhereToBuy: function() {
+                        window.location.href = "/product/where-to-buy/view/" + product.ean;
+                    }
+                });
+
+                general_util.applyBestProductImage({
+                    product: product,
+                    brand: brand
+                }, pageContainer);
+
+                var promoImageContainer = $('.product-promo-container');
+                if(typeof(product) != 'undefined' && typeof(product.promo_images) != 'undefined' && product.promo_images.length > 0) {
+                    promoImageContainer.html('<img src="' + general_util.processImageLink(product.promo_images[0]) + '">');
+                } else {
+                    promoImageContainer.html('');
+                }
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    - link_count = 0;
+
+                    .centered-column
+                        //-+product_image_header()
+                        .product-image-jumbotron-container
+                        .product-menu-container
+                        .product-promo-container
+                    //div(style="margin-bottom: 4px;")
+                        mixin product_accordion_widget(product, brand)
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()
+

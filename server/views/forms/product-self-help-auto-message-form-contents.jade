@@ -1,0 +1,21 @@
+include ../widgets/brand-select
+include ../widgets/file-upload-widget
+
+block append scripts
+    script.
+        $(function() {
+        });
+
+mixin product_self_help_auto_message_form_contents(caller, product)
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Auto-Message
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="A message that is shown in a dialog when a user scans or views this product.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            textarea.form-control.auto-message(name="auto-message")= product.auto_message
+   .form-group
+        label.col-xs-12.col-sm-2.control-label Auto-Message Expiration
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The auto-message is displayed until the provided date.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            input.form-control.auto-message-expiration.datepicker(name="brand-auto-message-expiration", style="width: 100px; padding-left: 10px;")

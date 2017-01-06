@@ -1,0 +1,30 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/tpl/socket.io.js")
+        script(src="/js/tpl/easyrtc.js")
+        script(src="/js/tpl/purl.js")
+        script.
+            $(function() {
+                var brand_id = "!{typeof(brand_id) != 'undefined' ? brand_id : ''}";
+                var url = $.url(window.location.href);
+
+                video_chat_widget.init({
+                    roomName: brand_id.length > 0 ? brand_id : "default", // action.audioVideo
+                    container: $('.video-container'),
+                    isCalling: url.param('calling') == "true",
+                    showSelf: false,
+                    remoteUrl: url.attr('host') + ':' + url.attr('port')
+                });
+            });
+        style.
+            #easyrtcErrorDialog {
+                display: none !important;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                .video-container

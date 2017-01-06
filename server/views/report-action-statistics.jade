@@ -1,0 +1,53 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/bootstrap-datepicker.min.css')
+        script(src='/js/tpl/highcharts.js')
+        script(src='/js/tpl/bootstrap-datepicker.min.js')
+
+        script(src="/js/widgets/reports/report-action-statistics-table.js")
+        script(src="/js/widgets/reports/app-sentiment-chart.js")
+        script(src="/js/report-action-statistics.js")
+        include ./widgets/sortable-table
+        include ./widgets/table-pager
+
+        style.
+            .input-group-addon:first-child {
+                min-width: 55px;
+                font-size: 12px;
+            }
+            .spacer {
+                width: 206px;
+                height: 15px;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                .pull-left
+                    .input-group.date.datepicker.from-date.pull-left(style="width: 150px; margin-right: 10px;")
+                        span.input-group-addon From
+                        input.form-control(placeholder="dd/mm/yyyy", size="16", type="text", value="", style="width: 110px;")
+                        span.add-on.calendar-add-on.input-group-addon
+                            i.icon-calendar
+                    .clearfix
+                    .input-group.date.datepicker.to-date.pull-left(style="width: 150px;")
+                        span.input-group-addon To
+                        input.form-control(placeholder="dd/mm/yyyy", size="16", type="text", value="", style="width: 110px;")
+                        span.add-on.calendar-add-on.input-group-addon
+                            i.icon-calendar
+                .pull-right
+                    div.spacer
+                h3.text-center=title
+                .pull-right.text-right.spacer
+                    a.btn.btn-primary.btn-xs.export-action-statistics export
+                h5.text-center Note: Statistics are not yet available for the current day
+                .table-container
+                +table_pager()
+                .clearfix
+                hr
+                h3.text-center App Sentiment/Emoticon Results
+                .well
+                    .survey-container.text-center

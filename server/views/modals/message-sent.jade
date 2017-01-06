@@ -1,0 +1,11 @@
+.modal-message-sent.modal(style="height:165px; width: 265px; margin-left: -132px; left: 50%; top: 50%; margin-top: -100px; overflow: visible;")
+    .modal-content
+        .modal-header
+            button.close(data-dismiss='modal') x
+            h4(style="margin: 0;") Message Sent
+        .modal-body(style="border-radius: 10px; padding-bottom: 5px;")
+        .modal-footer
+            button(data-dismiss="modal").btn.btn-success Ok
+
+block append scripts
+    script(src='/js/modals/message-sent.js', type='text/javascript')

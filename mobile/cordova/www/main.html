@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width" charset="UTF-8" />
+    <link rel="stylesheet" href="css/ext/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/ext/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/ext/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="css/ext/animate.min.css" />
+
+   <!-- <link rel="stylesheet" href="css/ext/framework7/framework7.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="css/ext/swiper.min.css" />
+    <title>Action!</title>
+</head>
+
+<body class="hidden">
+
+<div class="spacer"></div>
+
+    <div class="sidebar">
+
+        <br/>
+        <ul class="nav" id="lg-menu">
+            <li class="logged-in"><a href="#profile"><i class="glyphicon glyphicon-user"></i>  <span class="user-name">firsname lastname</span></a></li>
+            <li class="logged-out"><a href="#login"><i class="glyphicon glyphicon-user"></i> log in</a></li>
+            <li class="logged-in"><a href="#intro"><i class="glyphicon glyphicon-globe"></i> take a tour</a></li>
+            <li class="logged-in"><a href="#favorite-brands"><i class="glyphicon glyphicon-heart"></i>  favorites</a></li>
+            <li class="logged-in"><a href="#opt-ins"><i class="glyphicon glyphicon-check"></i>  opt-ins</a></li>
+
+            <li class="logged-in"><a href="#history-page"><i class="glyphicon glyphicon-envelope"></i>  messages<span style="margin-left: 2px;" class="unread-messages badge badge-important hidden"></span></a></li>
+            <li class="logged-in admin-only"><a class="switch-environment"><i class="glyphicon glyphicon-adjust"></i> switch env.</a></li>
+            <li class="logged-in admin-only"><a class="clear-storage"><i class="glyphicon glyphicon-hdd"></i> clear storage</a></li>
+            <li><br/></li>
+            <li><a class="find-redirect"><i class="glyphicon glyphicon-search"></i> search</a></li>
+            <li><a class="scan-link"><i class="glyphicon glyphicon-barcode"></i> scan</a></li>
+        </ul>
+        <ul class="list-unstyled sidebar-footer">
+            <li class="version"></li>
+            <li class="logged-in"><a class="log-out"><i class="glyphicon glyphicon-off"></i> log off</a></li>
+        </ul>
+    </div>
+
+    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+
+    <div class="content site-wrap" data-menu-open-class="col-xs-2 col-sm-8 col-md-9 open" data-menu-closed-class="col-xs-12 closed" style="padding-left: 0; padding-right: 0;">
+
+    <div data-role="header">
+        <div class="navbar-inner">
+            <label for="nav-trigger" class="hamburger-label"></label>
+
+            <a href="#index" style="" class="brand">
+                <svg xmlns="http://www.w3.org/600/svg" class="brand-svg" viewBox="0 0 324 72.414" enable-background="new 0 0 360 360"><switch transform="translate(-18 -143.793)"><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"/><g><g><path class="logo-text-background" d="M339.025 149.382h-235.204c-1.649 0-2.98 1.377-2.98 3.022v60.822c0 1.646 1.33 2.981 2.98 2.981h235.204c1.644 0 2.975-1.335 2.975-2.98v-60.822c0-1.645-1.331-3.023-2.975-3.023z"/><g><g fill="#fff"><path d="M159.261 185.518v-.117c0-8.8 6.731-16.045 16.167-16.045 4.653 0 7.936 1.266 10.525 3.45.572.459 1.377 1.497 1.377 2.991 0 2.185-1.785 3.91-3.966 3.91-1.152 0-2.016-.459-2.534-.863-1.554-1.206-3.162-1.955-5.461-1.955-4.377 0-7.477 3.852-7.477 8.397v.116c0 4.717 3.046 8.511 7.821 8.511 2.306 0 4.085-.805 5.75-2.13.459-.34 1.322-.802 2.36-.802 2.064 0 3.675 1.668 3.675 3.741 0 1.144-.514 2.067-1.266 2.759-2.586 2.356-5.86 3.967-10.922 3.967-9.257 0-16.049-7.133-16.049-15.93z"/><path d="M195.528 192.016v-14.61h-.29c-2.074 0-3.737-1.667-3.737-3.737 0-2.069 1.663-3.74 3.737-3.74h.29v-3.851c0-2.414 1.955-4.372 4.367-4.372 2.416 0 4.371 1.958 4.371 4.372v3.851h3.856c2.067 0 3.734 1.671 3.734 3.74 0 2.07-1.667 3.737-3.734 3.737h-3.856v13.169c0 2.015.866 2.992 2.821 2.992.282 0 .868-.057 1.035-.057 1.959 0 3.624 1.609 3.624 3.622 0 1.557-1.036 2.818-2.245 3.281-1.612.627-3.104.861-5.005.861-5.344.001-8.968-2.129-8.968-9.258z"/><path d="M219.506 178.28c0-2.416 1.952-4.371 4.37-4.371 2.409 0 4.371 1.955 4.371 4.371v18.45c0 2.414-1.962 4.369-4.371 4.369-2.418 0-4.37-1.955-4.37-4.369v-18.45z"/><path d="M234.961 185.518v-.117c0-8.857 7.126-16.045 16.723-16.045 9.55 0 16.62 7.075 16.62 15.93v.116c0 8.857-7.127 16.047-16.73 16.047-9.553-.001-16.613-7.073-16.613-15.931zm24.724 0v-.117c0-4.544-3.281-8.512-8.111-8.512-5.004 0-7.995 3.853-7.995 8.397v.116c0 4.543 3.279 8.511 8.104 8.511 5.011 0 8.002-3.85 8.002-8.395z"/><path d="M148.735 168.681c-2.409 0-4.364 1.956-4.364 4.371v.303c-2.483-2.182-5.425-3.789-8.663-3.789-9.481 0-16.521 7.094-16.521 15.835v.116c0 8.741 6.979 15.721 16.408 15.721 2.894 0 6.6-2.154 8.777-5.812v.099c0 2.415 1.02 5.575 4.364 5.575 2.415 0 4.367-1.955 4.367-4.369v-23.679c0-2.415-1.953-4.371-4.368-4.371zm-4.75 16.836c0 4.486-2.663 8.288-8.278 8.288-4.773 0-8.002-3.916-8.002-8.403v-.114c0-4.488 2.949-8.287 7.888-8.287 5.43 0 8.391 3.917 8.391 8.401v.115z"/><path d="M273.732 173.957c0-2.413 1.955-4.37 4.361-4.37 2.419 0 4.374 1.956 4.374 4.37v.346c2.013-2.593 4.605-4.947 9.037-4.947 6.606 0 10.465 4.371 10.465 11.444v15.931c0 2.415-1.963 4.37-4.374 4.37-2.413 0-4.367-1.955-4.367-4.37v-13.169c0-4.142-1.963-6.271-5.293-6.271-3.339 0-5.468 2.129-5.468 6.27v13.17c0 2.414-1.955 4.369-4.374 4.369-2.406 0-4.361-1.955-4.361-4.369v-22.774z"/></g><path d="M223.767 161.871c2.563 0 4.467 1.901 4.467 4.362v.103c0 2.463-1.904 4.362-4.467 4.362-2.563 0-4.457-1.899-4.457-4.362v-.103c0-2.461 1.894-4.362 4.457-4.362z" fill="#c5c5c5"/><path d="M223.767 161.871c2.563 0 4.467 1.901 4.467 4.362v.103c0 2.463-1.904 4.362-4.467 4.362-2.563 0-4.457-1.899-4.457-4.362v-.103c0-2.461 1.894-4.362 4.457-4.362z" fill="#fff"/><path d="M319.947 184.692c0 2.414-1.956 4.369-4.369 4.369-2.417 0-4.372-1.955-4.372-4.369v-18.452c0-2.416 1.955-4.369 4.372-4.369 2.413 0 4.369 1.953 4.369 4.369v18.452z" fill="#fff"/><path d="M315.687 201.101c-2.571 0-4.469-1.9-4.469-4.363v-.102c0-2.464 1.898-4.36 4.469-4.36 2.561 0 4.458 1.896 4.458 4.36v.102c.001 2.462-1.897 4.363-4.458 4.363z" fill="#c5c5c5"/><path d="M315.687 201.101c-2.571 0-4.469-1.9-4.469-4.363v-.102c0-2.464 1.898-4.36 4.469-4.36 2.561 0 4.458 1.896 4.458 4.36v.102c.001 2.462-1.897 4.363-4.458 4.363z" fill="#fff"/><path d="M326.646 162.965h-1.11c-.282 0-.514-.232-.514-.514 0-.282.232-.514.514-.514h3.381c.282 0 .514.232.514.514 0 .281-.232.514-.514.514h-1.11v3.597c0 .315-.265.58-.58.58-.315 0-.58-.265-.58-.58v-3.597zm3.067-.53c0-.315.249-.563.563-.563h.133c.232 0 .414.133.514.298l1.343 2.205 1.375-2.205c.116-.199.265-.298.497-.298h.133c.298 0 .547.248.547.563v4.16c0 .298-.248.547-.547.547-.299 0-.547-.249-.547-.547v-2.668l-.995 1.541c-.115.182-.248.298-.464.298-.216 0-.348-.099-.481-.298l-.978-1.508v2.635c0 .298-.248.547-.547.547-.299 0-.547-.249-.547-.547v-4.16z" fill="#363636"/></g></g><g><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="54.964" y1="216.206" x2="54.964" y2="143.793"><stop offset="0" class="bottom-left-gradient" stop-color="#9C9C9C"/><stop offset="1" class="top-left-gradient" stop-color="#D5D5D5"/></linearGradient><path d="M88.96 149.367h-18.905.011v-2.603c0-1.641-1.331-2.971-2.973-2.971h-24.867c-1.639 0-2.97 1.331-2.97 2.971v2.603h.01-18.294c-1.645 0-2.972 1.373-2.972 3.013v60.852c0 1.642 1.327 2.973 2.972 2.973h67.988c1.64 0 2.967-1.331 2.967-2.972v-60.852c0-1.64-1.327-3.014-2.967-3.014z" fill="url(#a)"/><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="55.306" y1="216.206" x2="55.306" y2="150.935"><stop offset="0" class="bottom-right-gradient" stop-color="#C7C7C7"/><stop offset="1" class="top-right-gradient" stop-color="#fff"/></linearGradient><path d="M18.684 215.11c.544.663 1.36 1.095 2.288 1.095h67.988c1.64 0 2.967-1.331 2.967-2.972v-60.852c0-.524-.147-1.013-.385-1.447l-72.858 64.176z" fill="url(#b)"/><g><path d="M70.322 183.844c0 9.929-8.05 17.978-17.969 17.978-9.928 0-17.974-8.049-17.974-17.978 0-9.928 8.046-17.976 17.974-17.976 9.919-.001 17.969 8.048 17.969 17.976z" fill="#fff"/><path d="M44.736 186.22c-1.681 0-3.066-1.34-3.113-3.031-.09-3.434.883-6.223 2.896-8.29 2.917-2.995 7.009-3.319 8.63-3.319 1.719 0 3.116 1.394 3.116 3.115 0 1.72-1.397 3.113-3.116 3.113-.649 0-2.872.104-4.168 1.435-.794.818-1.174 2.088-1.129 3.779.045 1.719-1.31 3.15-3.032 3.196l-.084.002z"/><path d="M64.39 172.411c1.291 2.304 2.031 4.958 2.031 7.786 0 8.836-7.16 15.997-15.987 15.998-4.309.001-8.215-1.711-11.093-4.485 2.735 4.897 7.962 8.211 13.969 8.21 8.823-.001 15.985-7.164 15.985-15.998 0-4.525-1.882-8.603-4.905-11.511z" fill="#d1d2d3"/><g><path d="M78.113 201.687c0 2.257-1.83 4.089-4.081 4.089-2.251 0-4.085-1.833-4.085-4.089 0-2.259 1.834-4.088 4.085-4.088s4.081 1.829 4.081 4.088z"/><path d="M68.921 198.334c.398-.465 1.387-1.499 1.387-1.499 1.038-.806 2.338-1.29 3.751-1.29 1.294 0 2.493.406 3.483 1.094.122.085.289.003.289-.146v-30.529c0-2.004-1.512-3.753-3.512-3.882-2.191-.141-4.011 1.594-4.011 3.753v3.688c0 .105-.13.149-.195.067-4.364-5.495-11.27-8.883-18.936-8.308-10.788.81-19.495 9.509-20.307 20.296-.973 12.926 9.267 23.755 21.992 23.755 6.336.001 12.038-2.702 16.059-6.999zm-16.059.772c-8.727 0-15.83-7.101-15.83-15.829 0-8.729 7.102-15.83 15.83-15.83 8.724 0 15.821 7.101 15.821 15.83 0 8.728-7.097 15.829-15.821 15.829z"/></g></g></g><path d="M82.942 163.939h-.67c-.17 0-.31-.14-.31-.31 0-.17.14-.31.31-.31h2.041c.17 0 .31.14.31.31 0 .17-.14.31-.31.31h-.67v2.172c0 .19-.16.35-.35.35-.19 0-.35-.16-.35-.35v-2.172zm1.851-.321c0-.19.15-.34.34-.34h.08c.14 0 .25.08.31.18l.811 1.331.83-1.331c.07-.12.16-.18.3-.18h.08c.18 0 .33.15.33.34v2.512c0 .18-.15.33-.33.33-.18 0-.33-.15-.33-.33v-1.611l-.601.931c-.07.11-.15.18-.28.18-.13 0-.21-.06-.29-.18l-.59-.911v1.591c0 .18-.15.33-.33.33-.18 0-.33-.15-.33-.33v-2.512z" fill="#fff"/></g></switch></svg>
+            </a>
+
+            <span class="text"></span>
+
+            <ul class="right-nav nav pull-right">
+                <li style="cursor: pointer;" class="navbar-widget">
+                    <!--<a data-toggle="dropdown" class="dropdown-toggle">-->
+                    <a href="#index" class="dropdown-toggle">
+                        <img src="img/magnifying-glass-mini-v2.png">
+                    </a>
+                    <!--
+                    <ul class="pull-left dropdown-menu dropdown-yellow dropdown-caret">
+                        <li><a href="#" class="find-redirect"><i class="glyphicon glyphicon-search" style="margin-right: 10px;"></i>search</a></li>
+                        <li><a class="scan-link"><i class="glyphicon glyphicon-barcode" style="margin-right: 10px;"></i>scan</a></li>
+                    </ul>
+                    -->
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+    <!-- INTRO/TOUR PAGE -->
+    <div data-role="page" id="intro">
+        <div id="intro-content" data-role="content" style="margin: 0px; padding: 0px">
+            <div class="swiper-container swiper-container-horizontal swiper-container-android">
+                <div id="swiper-wrapper" class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                    <div class="swiper-slide swiper-slide-active" style="width: 600px">
+                        <img src="img/welcome_slide_bg_1.jpg" style="width:100%" />
+                        <a href="javascript:void(0);" onclick="exit_tour();" style="font-size:30pt;z-index: 1000; color: white; position: absolute; top:20px; right:20px;">skip</a>
+                        <div class="swipe-block">
+                            <span class="welcome_hello">hello</span><br/>
+                            <img src="img/action_logo.png" class="logo" />
+                            <p class="p1">
+                                <br/>
+                                <span>welcome to the action app</span>
+                            </p>
+                            <p class="p2">
+                                <span>easy communication</span><br/>
+                                <span>one app</span><br/>
+                                <span>never repeat yourself</span>
+                            </p>
+                            <div class="center-block buttonNext">continue</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 600px;">
+                        <a href="javascript:void(0);" onclick="exit_tour();" style="font-size:30pt;z-index: 1000; color: white; position: absolute; top:20px; right:20px;">skip</a>
+                        <img u="image" src="img/welcome_slide_bg_2.jpg"  style="width:100%" />
+                        <div class="swipe-block">
+                            <img src="img/action_logo.png" class="logo padTop" />
+                            <p class="p2">
+                                get product<br/>
+                                information
+                            </p>
+                            <div class="center-block buttonNext">cool! what else?</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 600px;"><a href="javascript:void(0);" onclick="exit_tour();" style="font-size:30pt;z-index: 1000; color: white; position: absolute; top:20px; right:20px;">skip</a>
+                        <img u="image" src="img/welcome_slide_bg_3_1.jpg"  style="width:100%"/>
+                        <div class="swipe-block">
+                            <img src="img/action_logo.png" class="logo padTop" />
+                            <p class="p2">
+                                give brands<br/>
+                                feedback
+                            </p>
+                            <div class="center-block buttonNext">ok, who responds?</div>
+                        </div></div>
+                    <div class="swiper-slide" style="width: 600px;">
+                        <a href="javascript:void(0);" onclick="exit_tour();" style="font-size:30pt;z-index: 1000; color: white; position: absolute; top:20px; right:20px;">skip</a>
+                        <img u="image" src="img/welcome_slide_bg_3.jpg"  style="width:100%"/>
+                        <div class="swipe-block">
+                            <img src="img/action_logo.png" class="logo padTop" />
+                            <p class="p2">
+                                get answers<br/>
+                                direct from the<br/>
+                                brand reps
+                            </p>
+                            <div class="center-block buttonNext">even better!</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 600px;">
+                        <a href="javascript:void(0);" onclick="exit_tour();" style="font-size:30pt;z-index: 1000; color: white; position: absolute; top:20px; right:20px;">skip</a>
+                        <img u="image" src="img/welcome_slide_bg_4.jpg"  style="width:100%"/>
+                        <div class="swipe-block">
+                            <img src="img/action_logo.png" class="logo padTop" />
+                            <p class="p2">
+                                just scan<br/>
+                                or search
+                            </p>
+                            <div class="center-block buttonNext">easy!</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 600px;">
+                        <a href="javascript:void(0);" onclick="exit_tour();" style="font-size:30pt;z-index: 1000; color: white; position: absolute; top:20px; right:20px;">skip</a>
+                        <img u="image" src="img/welcome_slide_bg_5.jpg"  style="width:100%"/>
+                        <div class="swipe-block">
+                            <img src="img/action_logo.png" class="logo padTop" />
+                            <p class="p2">
+                                get special offers<br/>
+                                from brands<br/>
+                                <span style="font-size: 40%; line-height: 26pt">no gimmicks, honest!</span>
+                            </p>
+                            <div class="center-block buttonNext">yes, please!</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="width: 600px;">
+                        <img u="image" src="img/welcome_slide_bg_6.jpg"  style="width:100%"/>
+                        <div class="swipe-block">
+                            <img src="img/action_logo_ex.png" class="logoLastSlide" />
+                            <div class="whitebgCallout">
+                                <p style="line-height: 40pt; font-weight: bold;" >
+                                    create your<br/>
+                                    profile to<br/>
+                                    save time
+                                </p>
+                            </div>
+                            <div class="center-block buttonNext" style="background-color: black; color: #ffffff" onclick="exit_tour();">get started</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination swiper-pagination-clickable">
+                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+                    <span class="swiper-pagination-bullet"></span>
+                    <span class="swiper-pagination-bullet"></span>
+                    <span class="swiper-pagination-bullet"></span>
+                    <span class="swiper-pagination-bullet"></span>
+                    <span class="swiper-pagination-bullet"></span>
+                    <span class="swiper-pagination-bullet"></span>
+                </div>
+
+
+                <!-- Navigator Skin End -->
+        </div>
+        </div>
+    </div>
+
+    <!-- INDEX PAGE -->
+    <div data-role="page" id="index" class="">
+
+        <div data-role="content">
+            <div class="jumbotron text-center">
+                <div class="container">
+                    <h1>let's get started</h1>
+                </div>
+            </div>
+            <div class="text-center index-group find-redirect">
+                <label>lookup by name</label>
+                <div class="clearfix"></div>
+                <a class="" style="text-decoration: none; color: #333;">
+                    <img style="cursor: pointer;" src="img/magnifying-glass-v2.png">
+                    <div class="clearfix"></div>
+                </a>
+            </div>
+            <div class="hr-or">
+                <hr>
+                <span class="text">or</span>
+                <hr>
+            </div>
+            <div class="text-center index-group scan-redirect" onclick="app_controller.openInternalPage('#scan');">
+                <label>scan a barcode to lookup</label>
+                <div class="clearfix"></div>
+                <a class="" style="text-decoration: none; color: #333;">
+                    <img src="img/barcode_v2.png">
+                    <div class="clearfix"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER PAGE -->
+    <div data-role="page" id="register-page" class="register-page">
+        <div data-role="content">
+            <div class="text-center register-jumbotron">
+                <img src="img/action_logo.png" />
+            </div>
+
+            <style>
+
+                .terms-label input{
+                    width: 60px;
+                    height: 60px;
+                }
+
+                .terms-label label {
+                    padding-left: 15px;
+                }
+            </style>
+            <div class="registration-form">
+                    <div  class="centered-column">
+                        <div class="profile-form-container"></div>
+                        <div>
+
+                            <button class="btn btn-success button-black col-xs-12 create-button">register</button>
+                        </div>
+                        <br/><br/>
+                        <div class="clearfix"></div>
+                    </div>
+              </div>
+        </div>
+    </div>
+
+    <!-- BASIC USER INFO PAGE -->
+    <div data-role="page" id="user-info" class="">
+        <div data-role="content" class="hidden">
+            <h5 class="text-center" style="font-weight: bold;">Welcome to Action!</h5>
+            <h5 class="text-center">Want to SAVE TIME?</h5>
+            <h5 class="text-center">Never Repeat Your Contact Information AGAIN to ANY Brand!</h5>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-xs-3 col-sm-3 control-label">First Name</label>
+                        <div class="col-xs-9 col-sm-9">
+                            <input value="" data-id="" class="form-control first-name-field">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 col-sm-3 control-label">Last Name</label>
+                        <div class="col-xs-9 col-sm-9">
+                            <input value="" data-id="" class="form-control last-name-field">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 col-sm-3 control-label">Birth Year</label>
+                        <div class="col-xs-9 col-sm-9">
+                            <input value="" data-id="" class="form-control birth-year-field">
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <div class="col-xs-6">
+                        <button class="btn btn-success pull-right submit-button" style="max-width: 150px;">Submit</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="btn btn-success pull-left later-button" style="max-width: 150px;">Later</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCAN PAGE -->
+    <div data-role="page" id="scan" class="">
+        <div data-role="content">
+            <div class="text-center scan-message">
+            </div>
+        </div>
+    </div>
+
+    <!-- FIND PAGE -->
+    <div data-role="page" id="find" class="">
+        <div data-role="content">
+            <div class="container-fluid" style="padding-top:10px;">
+                <div class="input-code-container">
+                    <form class="code" style="padding-left: 40px; padding-right: 40px">
+                        <div class="find-icon" style="position: absolute; left: 0px; top:3px;"><img src="img/magnifying-glass-mini-v2.png"></div>
+                        <input type="text" class="code-entry" style="width: 100%; padding-right:25px" name="code" autocomplete="off" spellcheck="false" placeholder="product name or upc/ean">
+                        <div class="cancel-icon" style="position: absolute; right: 42px; top:3px;"><img src="img/cancel1.png"></div>
+                        <div class="scan-link" style="position: absolute; right: 0px; top:3px;"><img src="img/barcode_v2.png"></div>
+                    </form>
+                </div>
+                <hr>
+                <div class="search-results-container"></div>
+                <div class="recent-products-container hidden">
+                    <div class="title-row" style="display: inline-flex;">
+                        <h4>Recent Searches:</h4>
+                        <div><button class="btn btn-success btn-xs btn-clear">Clear</button></div>
+                    </div>
+                    <div class="product-results-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BRAND PAGE -->
+    <div data-role="page" id="brand" class="">
+        <div data-role="content">
+            <div class="container-fluid">
+                <div class="brand-info-container"></div>
+                <div class="results-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BRAND MESSAGING PAGE -->
+    <div data-role="page" id="brand-messaging" class="">
+        <div data-role="content">
+            <div class="container-fluid">
+                <div class="text-center"><img class="product-image"></div>
+                <div class="brand-message"></div>
+                <div class="video-gallery text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOT PARTICIPATING PAGE -->
+    <div data-role="page" id="not-participating" class="">
+        <div data-role="content">
+            <div class="container-fluid">
+                <div class="text-center">
+                    <img src="img/exclamation.png">
+                </div>
+                <div class="text-center" style="margin-bottom: 15px;">
+                    looks like you need to contact
+                    this brand with more
+                    traditional methods as they
+                    are not yet set up with action!
+                </div>
+                <div class="data-dump"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO CHAT PAGE -->
+    <div data-role="page" id="video-chat" class="">
+        <div data-role="content">
+            <div class="video-container"></div>
+        </div>
+    </div>
+
+    <!-- PRODUCT RESULTS PAGE -->
+    <div data-role="page" id="product-results" class="">
+        <div data-role="content">
+            <div class="centered-column">
+                <div class="product-image-header">
+                    <div class="crop"><div class="overlay"></div></div>
+                    <div class="circle">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="data-dump"></div>
+                <div class="accordion-container"></div>
+                <div class="rating-container text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT CONFIRM PAGE -->
+    <div data-role="page" id="product-confirm" class="">
+        <div data-role="content">
+            <div class="container-fluid">
+                <div class="text-center"><img class="product-image"></div>
+                <h4 class="text-center">is this your product?</h4>
+                <div class="text-center" style="margin-bottom: 10px;">
+                    <a class="confirm-product-no"><img src="img/no.png"></a>
+                    <a class="confirm-product-yes"><img src="img/yes.png"></a>
+                </div>
+                <div class="data-dump"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT MENU PAGE -->
+    <div data-role="page" id="product-menu" class="text-center">
+        <div data-role="content">
+            <div class="product-image-jumbotron-container"></div>
+
+            <div class="clearfix"></div>
+
+            <div class="product-menu-container"></div>
+            <div class="product-promo-container"></div>
+
+            <!-- <a class="btn menu-button product-brand-messaging" onclick="app_controller.openInternalPage('#brand-messaging');">brand message<img src="" style="float: left; margin-top: 5px;"></a> -->
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+
+    <!-- HOW CAN WE HELP PAGE -->
+    <div data-role="page" id="how-can-we-help">
+        <div data-role="content" class="text-center">
+            <div class="product-image-header">
+                <div class="crop"><div class="overlay"></div></div>
+                <div class="circle">
+
+                </div>
+            </div>
+
+            <h2>how can we help?</h2>
+            <a class="btn menu-button" onclick="app_util.setNonReplyMode('comment'); app_controller.openInternalPage('#share');">comment</a>
+            <div class="clearfix"></div>
+            <a class="btn menu-button" onclick="app_util.setNonReplyMode('question'); app_controller.openInternalPage('#share');">question</a>
+            <div class="clearfix"></div>
+            <a class="btn menu-button" onclick="app_util.setNonReplyMode('complaint'); app_controller.openInternalPage('#share');">complaint</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- AGE-RESTRICTED PRODUCT PAGE -->
+    <div data-role="page" id="age-restricted-product" class="">
+        <div data-role="content" class="text-center">
+            This is an age-restricted product.  Please scan or search for another product.
+        </div>
+    </div>
+
+    <!-- FAQ PAGE -->
+    <div data-role="page" id="faq-page">
+        <div data-role="content">
+
+            <div class="product-image-header">
+                <div class="crop"><div class="overlay"></div></div>
+                <div class="circle">
+                    <img class="circle" src="">
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="faq-content"></div>
+                <div class="rating-container text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHARE PAGE -->
+    <div data-role="page" id="share" class="">
+        <div data-role="content">
+            <div class="centered-column">
+
+                <div class="product-image-header">
+                    <div class="crop"><div class="overlay"></div></div>
+                    <div class="circle">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="prompt-spacer"></div>
+
+                <h3 class="title-text text-center"></h3>
+
+                <div class="container-fluid">
+                    <textarea rows="5" class="text-entry" data-autogrow="false" style="width: 100%;" placeholder="type your message..."></textarea>
+
+                    <div class="upload-buttons-container">
+                        <div class="clearfix"></div>
+
+                        <a class="upload-image"><div class="filler"><i class="glyphicon glyphicon-camera"></i></div></a>
+                        <a class="upload-video"><div class="filler"><i class="glyphicon glyphicon-film"></i></div></a>
+                        <a class="upload-audio"><div class="filler"><i class="glyphicon glyphicon-headphones"></i></div></a>
+
+                        <a class="upload-file hidden"><div class="filler"><i class="glyphicon glyphicon-save"></i></div></a>
+
+                        <div style="clear: both;"></div>
+                    </div>
+
+                    <div class="attachment-indicator text-center"></div>
+                    <div class="text-center" style="margin-top: 10px;">
+                        <a class="btn menu-button send-text">Send</a>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!-- <div class="text-center" style="margin-top: 30px;font-size: 15px;">* attachment limits: 5 photos, 10 second video, 30 second audio</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANKS SHARE PAGE -->
+    <div data-role="page" id="thanks-share">
+        <div data-role="content">
+            <div class="centered-column">
+
+                <div class="product-image-header">
+                    <div class="crop"><div class="overlay"></div></div>
+                    <div class="circle">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="text-container">
+                    <div class="text-center">Thank you for your comment</div>
+
+                    <!-- TODO: this needs to be a jumbotron-type thing that's connected to the product image header -->
+                    <h3 class="text-center"><span class="brand-name-text"></span> will get back to you</h3>
+                    <div class="clearfix"></div>
+                </div>
+
+                <br>
+
+                <div class="options-container">
+                    <div class="text-center" style="margin-bottom: 20px; margin-top: 20px;">
+                        <a class="btn menu-button" style="white-space: normal;" onclick="app_controller.openInternalPage('#history-page');">Check your action! messages for a response</a>
+                    </div>
+                    <div class="text-center" style="margin-bottom: 20px;">
+                        <a class="btn menu-button continue-conversation" onclick="app_controller.openInternalPage('#product-menu')">Continue the conversation with us</a>
+                    </div>
+                    <div class="text-center" style="margin-bottom: 20px;">
+                        <a class="btn menu-button" style="white-space: normal;" onclick="app_controller.openInternalPage('#index');">Look up something else?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHERE TO BUY PAGE -->
+    <div data-role="page" id="where-to-buy" class="">
+        <div data-role="content">
+            <div class="product-image-header">
+                <div class="crop"><div class="overlay"></div></div>
+                <div class="circle">
+                    <img class="circle" src="">
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="map-container" style="margin-left:25px;margin-right:25px;"></div>
+                <div class="rating-container text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MY HISTORY PAGE -->
+    <div data-role="page" id="history-page" class="">
+        <div data-role="content">
+            <div class="resolved-survey-container"></div>
+            <div class="user-message-container"></div>
+            <div class="rating-container text-center"></div>
+        </div>
+    </div>
+
+    <!-- MY FAVORITES PAGE -->
+    <div data-role="page" id="favorite-brands" class="">
+        <div data-role="content">
+            <div class="user-favorites-container"></div>
+        </div>
+    </div>
+
+    <!-- OPTED-IN BRANDS PAGE -->
+    <div data-role="page" id="opt-ins" class="">
+        <div data-role="content">
+            <div class="user-opt-ins-container"></div>
+        </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div data-role="page" id="profile" class="">
+        <div data-role="content">
+            <style>
+
+                .terms-label input{
+                    width: 60px;
+                    height: 60px;
+                }
+
+                .terms-label label {
+                    padding-left: 15px;
+                }
+            </style>
+            <div class="centered-column" style="padding-left: 10px; padding-right: 10px">
+                <div class="profile-image-container"></div>
+                <div class="profile-form-container"></div>
+                <div class="clearfix"></div>
+                <button class="btn btn-success button-black col-xs-12 save-button">save</button>
+                <div class="clearfix"></div>
+                <br>
+                <div class="temporary-picker-contents"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div data-role="page" id="login" class="login-page">
+        <div data-role="content">
+            <div class="text-center login-jumbotron" style="padding-left: 10px; padding-right: 10px">
+                <div class="centered-column">
+                    <img src="img/action_logo.png" /><br/>
+                    <div>
+                        <button class="btn btn-success button-facebook col-xs-12" onclick="facebook_util.login(); return false;">
+                            <img src="img/facebook_icon.png" width="32" height="32">  &nbsp;&nbsp;login with facebook
+                        </button>
+                        <button class="btn btn-success button-google col-xs-12" onclick="google_util.login(); return false;">
+                            <img src="img/google_plus_icon.png" width="32" height="32"> &nbsp;&nbsp;login with google plus
+                        </button>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="login-form">
+                <div  class="centered-column" style="text-align: center; padding-left: 10px; padding-right: 10px" >
+                    <div class="profile-form-container">
+                    <form role="form" class="login flex-form">
+                        <div class="field col-xs-12">
+                            <input type="text" name="email" class="form-control" autocomplete="off" autocapitalize="none" placeholder="email address">
+                        </div>
+                        <div class="col-xs-12 field" style="margin-bottom: 10px">
+                            <input type="password" name="password" class="form-control password-field" data-id="" placeholder="password">
+                        </div>
+                        <button type="submit" class="btn btn-success button-black col-xs-12">log in!</button>
+                        <div class="clearfix"></div>
+                    </form>
+                    </div>
+                    <a onclick="app_controller.openInternalPage('#register-page'); $('#login').addClass('hidden');">new to action! register</a>
+                    <br/>
+                    <a onclick="app_controller.openExternalPage('http://theactionapp.com/login?forgot=true');">forgot your password?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM PROMPT "MODAL" -->
+    <div data-role="page" id="custom-modal" class="">
+        <div data-role="content" class="">
+            <div class="prompt"></div>
+            <div class="button-container text-center"></div>
+        </div>
+    </div>
+
+    <!-- TERMS AND CONDITIONS PAGE -->
+    <div data-role="page" id="terms-and-conditions" class="">
+        <div data-role="content">
+            <div  class="centered-column">
+                <div class="content-container"></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="default-footer" data-role="footer" class="default-footer" data-position="fixed" data-tap-toggle="false"></div>
+    </div>
+
+
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/ext/jquery-2.1.0.min.js"></script>
+<script src="js/ext/jquery.form.min.js"></script>
+<script src="js/ext/bootstrap/bootstrap.min.js"></script>
+<script src="js/ext/doT.min.js"></script>
+<script src="js/ext/fileupload.js"></script>
+<script src="js/ext/spin.min.js"></script>
+<script src="js/ext/moment.min.js"></script>
+
+<script type="text/javascript" src="js/barcodescanner.js"></script>
+
+<script type="text/javascript" src="js/ext/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="js/ext/slider/jssor.js"></script>
+<script type="text/javascript" src="js/ext/slider/jssor.slider.min.js"></script>
+<script type="text/javascript" src="js/ext/socket.io.js"></script>
+<script type="text/javascript" src="js/ext/easyrtc.js"></script>
+<script type="text/javascript" src="js/ext/swiper.min.js"></script>
+
+
+<script type="text/javascript" src="js/widgets/common-widgets.js"></script>
+<script type="text/javascript" src="js/widgets/header-widget.js"></script>
+<script type="text/javascript" src="js/widgets/footer-widget.js"></script>
+<script type="text/javascript" src="../../../shared/common-widgets/video-chat-widget.js"></script>
+
+<script type="text/javascript" src="js/util/platform-util.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/util/app-controller.js"></script>
+<script type="text/javascript" src="js/util/app-util.js"></script>
+<script type="text/javascript" src="js/util/polling-util.js"></script>
+<script type="text/javascript" src="js/util/progress-modal.js"></script>
+<script type="text/javascript" src="js/util/capture-util.js"></script>
+<script type="text/javascript" src="js/util/confirmation-util.js"></script>
+<script type="text/javascript" src="js/util/product-query.js"></script>
+<script type="text/javascript" src="js/util/message-manager.js"></script>
+
+<script type="text/javascript" src="js/pages/pageController.js"></script>
+<script type="text/javascript" src="js/pages/brandMessagingPage.js"></script>
+<script type="text/javascript" src="js/pages/brandPage.js"></script>
+<script type="text/javascript" src="js/pages/customModalPage.js"></script>
+<script type="text/javascript" src="js/pages/faqPage.js"></script>
+<script type="text/javascript" src="js/pages/favoriteBrandsPage.js"></script>
+<script type="text/javascript" src="js/pages/findPage.js"></script>
+<script type="text/javascript" src="js/pages/historyPage.js"></script>
+<script type="text/javascript" src="js/pages/howCanWeHelpPage.js"></script>
+<script type="text/javascript" src="js/pages/indexPage.js"></script>
+<script type="text/javascript" src="js/pages/introPage.js"></script>
+<script type="text/javascript" src="js/pages/loginPage.js"></script>
+<script type="text/javascript" src="js/pages/notParticipatingPage.js"></script>
+<script type="text/javascript" src="js/pages/optInsPage.js"></script>
+<script type="text/javascript" src="js/pages/productResultsPage.js"></script>
+<script type="text/javascript" src="js/pages/productConfirmPage.js"></script>
+<script type="text/javascript" src="js/pages/productMenuPage.js"></script>
+<script type="text/javascript" src="js/pages/profilePage.js"></script>
+<script type="text/javascript" src="js/pages/registerPage.js"></script>
+<script type="text/javascript" src="js/pages/scanPage.js"></script>
+<script type="text/javascript" src="js/pages/sharePage.js"></script>
+<script type="text/javascript" src="js/pages/termsAndConditionsPage.js"></script>
+<script type="text/javascript" src="js/pages/thanksSharePage.js"></script>
+<script type="text/javascript" src="js/pages/userInfoPage.js"></script>
+<script type="text/javascript" src="js/pages/videoChatPage.js"></script>
+<script type="text/javascript" src="js/pages/whereToBuyPage.js"></script>
+<!--<script type="text/javascript" src="plugins/com.dooble.phonertc/www/phonertc.js"></script>-->
+<script type="text/javascript" src="js/util/facebook-util.js"></script>
+<script type="text/javascript" src="js/util/google-util.js"></script>
+<script type="text/javascript">
+    app.initialize();
+</script>
+</body>
+</html>

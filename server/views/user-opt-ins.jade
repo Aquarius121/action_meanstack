@@ -1,0 +1,20 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/favorites-opts.css')
+        script(src="/js/user-opt-ins.js")
+        script.
+            $(function() {
+                var user = !{typeof(user) != 'undefined' ? JSON.stringify(user) : '{};'};
+                user_opt_ins_page.init(user);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    h3=title
+                    .user-opt-ins-container
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

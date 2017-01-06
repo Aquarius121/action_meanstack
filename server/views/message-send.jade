@@ -1,0 +1,52 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/fileupload/jquery.fileupload.css')
+        script(src="/js/tpl/fileupload/jquery.ui.widget.js")
+        script(src="/js/tpl/fileupload/jquery.fileupload.js")
+        script(src="/js/tpl/fileupload/jquery.iframe-transport.js")
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+        script(src="/js/message-send.js")
+        script(type="text/javascript").
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+                var reply_to = !{typeof(reply_to) != 'undefined' ? JSON.stringify(reply_to) : 'undefined'};
+
+                message_send_page.init(caller, product, reply_to);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    .text-center
+                        -if(typeof(product) != 'undefined' && typeof(product.images) != 'undefined' && product.images.length > 0)
+                            img.product-image(src=product.images[0], style="margin-bottom: 10px;")
+                    .text-center(style="padding: 20px;") what would you like to share with us?
+                    -if(!reply_to)
+                        .text-center select one:
+                    .text-center(style="margin-top: 5px; margin-bottom: 5px;")
+                        -if(!reply_to)
+                            .type-select-container(style="display: inline-block;")
+                        .pull-left
+                            div(style="width: 100px; height: 1px;")
+                        .pull-right(style="margin-bottom: 5px;")
+                            span.btn.btn-danger.btn-sm.fileinput-button.image-upload-button
+                                i.glyphicon.glyphicon-paperclip
+                                span attach
+                                input.fileupload.image-upload(type="file",name="file",accept=".jpg,.png,.gif,.mp3,.wav,.mp4,.m4a,.avi")
+                                //input.fileupload.image-upload(type="file",name="file",data-url="/message")
+                    .clearfix
+                    textarea.text-entry(rows="5",data-autogrow="false",style="width: 100%;")
+                    .clearfix
+                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                    .text-center
+                        button.btn.button-black.col-xs-12.send-text send
+                    .clearfix
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

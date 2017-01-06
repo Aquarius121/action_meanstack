@@ -1,0 +1,27 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/brand-create.js")
+
+    +body()
+        .content-container
+            .page-content
+                h3 Create Brand
+                .well
+                    .form-group
+                        label.control-label.col-xs-12.col-sm-2.text-right Brand Name
+                        .col-xs-12.col-sm-4
+                            input.form-control.brand-name(type="text")
+                        label.control-label.col-xs-12.col-sm-2.text-right Brand Link
+                        .col-xs-12.col-sm-4
+                            input.form-control.brand-link(type="text")
+                    .clearfix
+                div(style="margin-top: 5px;")
+                .pull-right(style="margin-top: 5px;") 
+                    button.btn.btn-success.btn-create-brand Create
+                    button.btn.btn-cancel.btn-cancel-brand(style="margin-left: 10px;") Cancel 
+                .clearfix
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

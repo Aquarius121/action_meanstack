@@ -1,0 +1,35 @@
+include ../widgets/brand-select
+include ../widgets/file-upload-widget
+
+block append scripts
+    script(src="/js/tpl/jquery.elastic.source.js")
+    script.
+        $(function() {
+        });
+
+mixin product_self_help_social_form_contents(caller, product)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Facebook Link
+            .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The link for the product or brand's Facebook page.  No link appears if this is not supplied.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-4
+            input.form-control.facebook-link(value= product.facebook_link)
+        label.col-xs-12.col-sm-2.control-label Twitter Link
+            .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The link for the product or brand's Twitter page.  No link appears if this is not supplied.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-4
+            input.form-control.twitter-link(value= product.twitter_link)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Instagram Link
+            .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The link for the product or brand's Instagram page.  No link appears if this is not supplied.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-4
+            input.form-control.instagram-link(value= product.instagram_link)
+    hr
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Phone Number
+        .col-xs-12.col-sm-4
+            input.form-control.phone-number(value= product.phone_number)
+        label.col-xs-12.col-sm-2.control-label SMS Number
+        .col-xs-12.col-sm-4
+            input.form-control.sms-number(value= product.sms_number)

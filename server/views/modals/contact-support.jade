@@ -1,0 +1,16 @@
+.modal-contact-support.modal(style="height:165px; width: 265px; margin-left: -132px; left: 50%; top: 50%; margin-top: -100px; overflow: visible;")
+    .modal-content
+        .modal-header
+            button.close(data-dismiss='modal') x
+            h4 Contact Support
+        .modal-body(style="border-radius: 10px; padding-bottom: 5px;")
+            textarea(style="width: 100%;", rows="4").message-contents
+            .pull-right
+                label.remaining-characters(style="margin-bottom: 0;") 140 characters remaining
+            .clearfix
+        .modal-footer
+            button(data-dismiss="modal").btn.btn-warning Nevermind
+            button.btn.btn-success.btn-send-support-msg Send
+
+block append scripts
+    script(src='/js/modals/contact-support.js', type='text/javascript')

@@ -1,0 +1,37 @@
+include layout
+
+doctype html
+html
+    +head()
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+            
+        script(src="/js/message-thanks.js")
+        script(type="text/javascript").
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+
+                message_thanks_page.init(caller, product, brand);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    .text-center
+                        -if(typeof(product) != 'undefined' && typeof(product.images) != 'undefined' && product.images.length > 0)
+                            img.product-image(src=product.images[0], style="margin-bottom: 10px;")
+                    .text-center(style="padding: 20px; font-size: 18px;") Thank you for your comment!
+                    .text-center(style="padding: 20px; font-size: 16px;") #{brand.name} will get back to you.
+                    hr(style="margin-top: 20px; margin-bottom: 20px;")
+                    .text-center
+                        button.btn.button-black.col-xs-12.btn-check-messages Check your action! messages for a response
+                    .text-center
+                        button.btn.button-black.col-xs-12.btn-continue-conversation(style="margin-top: 10px;") Continue the conversation with us
+                    .text-center
+                        button.btn.button-black.col-xs-12.btn-do-lookup(style="margin-top: 10px;") Look up something else?
+                    .clearfix
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

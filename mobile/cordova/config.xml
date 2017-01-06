@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.theactionapp" version="4.1.1" versionCode="2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Action</name>
+    <description>
+        Action! app
+    </description>
+    <author email="myastutemobile@gmail.com" href="http://www.theactionapp.com">
+        Action!
+    </author>
+    <content src="index.html" />
+
+    <access origin="*" />
+
+    <preference name="KeepRunning" value="true"/>
+    <preference name="Orientation" value="portrait" />
+    <preference name="BackupWebStorage" value="local"/>
+    <!--<preference name="android-minSdkVersion" value="14" />-->
+    <!--<preference name="android-targetSdkVersion" value="21" />-->
+    <preference name="DisallowOverscroll" value="true" />
+
+    <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
+
+</widget>

@@ -1,0 +1,62 @@
+li.navbar-widget(style="cursor: pointer;")
+    a.dropdown-toggle(data-toggle="dropdown")
+        span.bar-container
+            span.fa.fa-bars.fa-2x
+        i.fa.fa-caret-down
+
+    ul.user-menu.pull-left.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer
+        -if(typeof(caller) != 'undefined')
+            li
+                a(href="/user/view/" + caller._id)
+                    i.fa.fa-user
+                    |Profile
+            li
+                a(href="/intro")
+                    i.fa.fa-globe
+                    |Take a Tour
+            li
+                a(href="/favorites/view?id=" + caller._id)
+                    i.fa.fa-heart
+                    |Favorites
+            li
+                a(href="/opt-ins/view?id=" + caller._id)
+                    i.fa.fa-check
+                    |Opt-ins
+            li
+                a(href="/user/" + caller._id + "/history/view")
+                    i.fa.fa-book
+                    |Messages
+                    span.unread-messages.badge.badge-important.badge-danger.hidden(style="margin-left: 10px; background-color: #d15b47!important;")
+            li
+                a(href="/products/find/view")
+                    i.fa.fa-search
+                    |Search
+            //-li
+                a(href="/coming-attraction/view")
+                    i.fa.fa-star
+                    |My Special Offers
+            //-li
+                a(href="/coming-attraction/view")
+                    i.fa.fa-dollar(style="margin-left: 3px; margin-right: 9px;")
+                    |My $
+            li.divider
+            li
+                a.btn-logout(href="#")
+                    i.fa.fa-power-off
+                    |Log out
+        -else
+            li
+                a(href="/login")
+                    i.fa.fa-user
+                    |Log in
+
+        //--if(typeof(product) != 'undefined')
+            li
+                a(href="/product/where-to-buy/view/" + product.ean)
+                    i.icon-globe
+                    |Where to Buy
+        //--if(typeof(product) != 'undefined')
+            li
+                a(href="/product/view/" + product.ean + "?mode=thrift")
+                    i.icon-tag
+                    |Thrifty

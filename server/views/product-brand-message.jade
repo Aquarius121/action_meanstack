@@ -1,0 +1,56 @@
+include layout
+
+//- db.ean.find({'pod_attributes.brand': {$exists: true}})
+//- 0040000002239
+
+doctype html
+html
+    +head()
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+        style.
+            .video-gallery {
+                position: relative;
+                padding-bottom: 56.25%;
+                padding-top: 30px;
+                height: 0;
+                overflow: hidden;
+            }
+
+            .video-gallery iframe, .video-gallery object, .video-gallery embed {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        script.
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+
+
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    - link_count = 0;
+
+                    //-h3 Product
+                            //-TODO: product form (mind edit/read-only)
+                    .text-center
+                        -if(typeof(product.images) != 'undefined' && product.images.length > 0)
+                            img.product-image(src=product.images[0], style="margin-bottom: 10px;")
+                    .brand-message
+                        -if(typeof(product) != 'undefined' && typeof(product.brand_message) != 'undefined')
+                            !=product.brand_message
+                    .video-gallery
+                        -if(typeof(product) != 'undefined' && typeof(product.promo_videos) != 'undefined' && product.promo_videos.length > 0)
+                            -each video_url in product.promo_videos
+                                iframe(src=video_url, frameborder="0", allowfullscreen="")
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()
+

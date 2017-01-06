@@ -1,0 +1,200 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/tpl/slider/jssor.slider.min.js")
+        script(src="/js/intro.js")
+        style.
+            .intro-slide {
+                text-align: center;
+            }
+
+            .intro-slide div {
+                color: white;
+                margin-top: 10%;
+                font-size: 50pt;
+            }
+
+            .intro-slide .logo {
+                width: 120px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .intro-slide .logoLastSlide {
+                width: 290px;
+                height: 382px;
+                margin-top: 58px;
+            }
+
+            .intro-slide .p1 {
+                font-size: 30%;
+                line-height: 30pt;
+                margin-bottom: 30px;
+            }
+
+            .intro-slide .p22 {
+                font-size: 20%;
+                line-height: 15pt;
+            }
+
+            .intro-slide .p2 {
+                font-size: 40%;
+                margin-top: 100px;
+                margin-bottom: 138px;
+                line-height: 25pt;
+            }
+
+            .intro-slide .p3 {
+                margin-top: 100px;
+                margin-bottom: 150px;
+                font-size: 64%;
+                line-height: 50pt;
+            }
+
+            .intro-slide .whitebgCallout {
+                background-color: white;
+                color: black;
+                font-size: 40%;
+                padding: 40px;
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 140px;
+            }
+
+            .intro-slide .padTop {
+                margin-top: 150px;
+            }
+
+            .intro-slide .buttonNext {
+                background-color: #00BD4B;
+                color: #FFF;
+                font-size: 34%;
+                border-radius: 4px;
+                width: 260px;
+                height: 60px;
+                padding: 12px;
+            }
+            .intro-slide div
+            {
+                margin-top: 10%;
+                z-index: 1000;
+            }
+
+            .intro-slide img
+            {
+                z-index: -1;
+            }
+
+
+            .navBullet div, .navBullet div:hover, .navBullet .av
+            {
+                overflow:hidden;
+                cursor: pointer;
+            }
+
+            .navBullet > div
+            {
+                border-style: solid;
+                border-width: 3px;
+                border-color: rgb(255, 255, 255);
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0);
+                width: 30px;
+                height: 30px;
+                z-index: 615;
+                box-shadow: 0 0 5px black !important;
+            }
+
+            .navBullet div:hover, .jssorb03 .av:hover {
+                background-color: #ffffff;
+            }
+            .navBullet .av {
+                background-color: #ffffff;
+            }
+            .navBullet .dn, .navBullet .dn:hover {
+                background-color: #ffffff;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                .container
+                    div#slider1_container(style='position: relative; top: 0px; left: 0px; right:0px; bottom:0px; width:360px; height:600px; margin: 0 auto; ')
+                        div(u='slides', style='cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width:360px; height:600px; ')
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_1.jpg')
+                                div.center-block
+                                    span hello
+                                    img.logo(src='img/action_logo.png')
+                                    p.p1
+                                        br
+                                        span welcome to the action app
+                                    p.p22
+                                        span easy communictaion
+                                        br
+                                        span one app
+                                        br
+                                        span never repeat yourself
+                                    div.center-block.buttonNext continue
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_2.jpg')
+                                div.center-block
+                                    img.logo(src='img/action_logo.png')
+                                    p.p2 get product
+                                        br
+                                        span information
+                                    div.center-block.buttonNext cool! what else?
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_3.jpg')
+                                div.center-block
+                                    img.logo(src='img/action_logo.png')
+                                    p.p2 give brands
+                                        br
+                                        span feedback
+                                    div.center-block.buttonNext ok, who responds?
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_3_1.jpg' )
+                                div.center-block
+                                    img.logo(src='img/action_logo.png')
+                                    p.p2 get answers
+                                        br
+                                        span direct from the
+                                        br
+                                        span brand reps
+                                    div.center-block.buttonNext even better!
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_4.jpg' )
+                                div.center-block
+                                    img.logo(src='img/action_logo.png')
+                                    p.p2 just scan
+                                        br
+                                        span or search
+                                    div.center-block.buttonNext easy!
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_5.jpg' )
+                                div.center-block
+                                    img.logo(src='img/action_logo.png')
+                                    p.p2 get special offers
+                                        br
+                                        span from brands
+                                        br
+                                        span(style="font-size: 40%; line-height: 26pt") no gimmicks, honest!
+                                    div.center-block.buttonNext yes, please!
+                            div.intro-slide
+                                img(u='image', src='/img/intro/slide_bg_6.jpg' )
+                                div.center-block
+                                    img.logo(src='img/action_logo_ex.png')
+                                    //div.whitebgCallout
+                                    p.p2(style='color:black;') created your
+                                        br
+                                        span profile
+                                        br
+                                        span save time
+                                    div.center-block.buttonNext(style="background-color: black; color: #ffffff" onclick="window.location='/'") get started
+                        //div.navBullet.intro-slides-bullets(u="navigator")
+                            div(u="prototype" style="position: absolute; width: 22px; height: 22px; text-align:center; line-height:13px; color:white;")
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

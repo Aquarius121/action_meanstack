@@ -1,0 +1,82 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/tpl/ckeditor/ckeditor.js")
+        script.
+            var terms_changed = 0;
+            $(function() {
+                loading_modal.show('Loading');
+                $.ajax({
+                    type: 'GET',
+                    url: '/config/terms-and-conditions'
+                }).error(function(jqXHR) {
+                    loading_modal.hide();
+                    CKEDITOR.replace('terms-and-conditions');
+                    //alert_modal.showFromXHR('Error', jqXHR);
+                }).success(function(result) {
+                    loading_modal.hide();
+
+                    $('.terms-and-conditions').val(result.value);
+                    var editor = CKEDITOR.replace('terms-and-conditions');
+                    editor.on( 'change', function( evt ) {
+                        terms_changed = 1;
+                    });
+                });
+
+                $('button.btn-save').click(function() {
+                    var value = CKEDITOR.instances['terms-and-conditions'].getData();
+                    loading_modal.show('Saving');
+
+                    $.ajax({
+                     type: 'PUT',
+                     url: '/config/terms-and-conditions',
+                     data: {
+                        value: value
+                     }
+                    }).error(function(jqXHR) {
+                     loading_modal.hide();
+                     alert_modal.showFromXHR('Error', jqXHR);
+                    }).success(function(result) {
+                     loading_modal.hide();
+                     window.location.reload();
+                    });
+                    return false;
+                });
+
+                $('button.btn-cancel').click(function() {
+                    if(terms_changed == 1) {
+                        confirm_modal.setButtonClasses('btn-success', 'btn-danger');
+                        confirm_modal.show('Unsaved Changes', 'Are you sure you want to cancel?<BR>Any unsaved changes will be lost!', function() {
+                            window.location.reload();
+                        });
+                  } else {
+                      window.location.reload();
+                  }
+                });
+            });
+        style.
+            label {
+               text-transform: lowercase;
+            }
+
+    +body()
+        .content-container
+            .page-content
+               h4 Site Configuration
+               hr
+               form.form-horizontal
+                  .form-group
+                    label.col-xs-12.col-sm-3.control-label Terms and Conditions
+                        div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The terms and conditions for Action.")
+                            i.fa.fa-question(style="margin-left: -1px;")
+                    .col-xs-12.col-sm-9
+                        textarea.form-control.terms-and-conditions.hidden(name="terms-and-conditions")
+                  hr
+                  .pull-right
+                        button.btn.btn-sm.btn-success.btn-save Save
+                        button.btn.btn-sm.btn-cancel.btn-cancel(style="margin-left: 10px;") Cancel
+
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

@@ -1,0 +1,91 @@
+mixin brand_styles_widget()
+    //- note: mixing form-field with input-group is kinda nasty with this version of bootstrap.
+    // - that's why the form html is kinda weird-looking
+    form.form-horizontal
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Body Background
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.body-background-color-picker.form-control(type="text", value=(brand.styles && brand.styles.body_background ? brand.styles.body_background : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Body Text
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.body-text-color-picker.form-control(type="text", value=(brand.styles && brand.styles.body_text ? brand.styles.body_text : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Navbars
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.navbar-color-picker.form-control(type="text", value=(brand.styles && brand.styles.navbar ? brand.styles.navbar : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Navbar Widgets
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.navbar-widget-color-picker.form-control(type="text", value=(brand.styles && brand.styles.navbar_widget ? brand.styles.navbar_widget : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Navbar Widgets Hover
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.navbar-widget-hover-color-picker.form-control(type="text", value=(brand.styles && brand.styles.navbar_widget_hover ? brand.styles.navbar_widget_hover : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Accordion Heading Background
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.accordion-heading-background-color-picker.form-control(type="text", value=(brand.styles && brand.styles.accordion_heading_background ? brand.styles.accordion_heading_background : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Accordion Heading Text
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.accordion-heading-text-color-picker.form-control(type="text", value=(brand.styles && brand.styles.accordion_heading_text ? brand.styles.accordion_heading_text : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Product Summary Background
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.well-background-color-picker.form-control(type="text", value=(brand.styles && brand.styles.well_background ? brand.styles.well_background : "#5367ce"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Product Summary Heading
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.well-heading-text-color-picker.form-control(type="text", value=(brand.styles && brand.styles.well_heading_text ? brand.styles.well_heading_text : "#5367ce"))
+        .clearfix
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Brand Logo Text Background
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.brand-logo-text-color-picker.form-control(type="text", value=(brand.styles && brand.styles.brand_logo_text ? brand.styles.brand_logo_text : "#05d657"))
+        .clearfix
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Brand Logo Top Left
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.brand-logo-top-left-color-picker.form-control(type="text", value=(brand.styles && brand.styles.brand_logo_top_left ? brand.styles.brand_logo_top_left : "#87FC70"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Brand Logo Top Right
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.brand-logo-top-right-color-picker.form-control(type="text", value=(brand.styles && brand.styles.brand_logo_top_right ? brand.styles.brand_logo_top_right : "#87FC70"))
+
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Brand Logo Bottom Left
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.brand-logo-bottom-left-color-picker.form-control(type="text", value=(brand.styles && brand.styles.brand_logo_bottom_left ? brand.styles.brand_logo_bottom_left : "#05d657"))
+        .col-xs-6.col-sm-6
+            label.control-label.col-xs-12.col-sm-5 Brand Logo Bottom Right
+            .input-group.color-picker.col-xs-12.col-sm-7
+                span.input-group-addon
+                    i
+                input.brand-logo-bottom-right-color-picker.form-control(type="text", value=(brand.styles && brand.styles.brand_logo_bottom_right ? brand.styles.brand_logo_bottom_right : "#01b103"))

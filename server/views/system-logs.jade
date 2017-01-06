@@ -1,0 +1,42 @@
+include layout
+
+doctype html
+html
+   +head()
+      link(rel='stylesheet', href='/stylesheets/bootstrap-datepicker.min.css')
+
+      include widgets/table-pager
+      include widgets/sortable-table
+
+      script(src='/js/tpl/purl.js')
+      script(src='/js/tpl/bootstrap-datepicker.min.js')
+      script(src="/js/widgets/date-range-widget.js")
+      script(src="/js/widgets/tables/logs-table.js")
+      script(src="/js/system-logs.js")
+      style.
+          .clock-container {
+              margin-right: 10px;
+              margin-top: 8px;
+          }
+
+   +body()
+       .content-container
+            .page-content
+               h3.pull-left System Logs
+               .controls.pull-right
+                  .date-range-container
+               .clock-container.pull-right
+               .clearfix
+               table.table.table-bordered.table-striped
+                   thead
+                       tr
+                           th.filter-false(style="width: 200px;") Timestamp
+                           th(style="width: 80px;") Level
+                           th Host
+                           th(style="width: 80px;") Node
+                           th Message
+                   tbody
+               mixin table_pager()
+
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

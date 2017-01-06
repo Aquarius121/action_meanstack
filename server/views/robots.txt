@@ -1,0 +1,1 @@
+User-agent: *Disallow: /register/Disallow: /products/Disallow: /find/Disallow: /user/Disallow: /favorites/Disallow: /opt-ins/Disallow: /login/Sitemap: http://www.theactionapp.com/sitemap.xml

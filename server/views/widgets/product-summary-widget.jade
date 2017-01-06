@@ -1,0 +1,15 @@
+mixin product_summary_widget()
+    .product-result
+    -if(product)
+
+block append scripts
+    script(src="/js/util/platform-util.js")
+    style.
+        .product-result .well h3 {
+            margin-bottom: 5px;
+        }
+
+        .product-result .well h5 {
+            margin-bottom: 5px;
+        }
+

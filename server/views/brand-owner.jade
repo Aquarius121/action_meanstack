@@ -1,0 +1,48 @@
+include layout
+
+doctype html
+html
+    +head()
+        include ./widgets/brands-table
+        include ./modals/select-brand
+        script(src="/js/brand-owner.js")
+        script.
+            $(function() {
+                var brand_owner = !{typeof(owner) != 'undefined' ? JSON.stringify(owner) : 'new Object();'};
+                brand_owner_page.init(brand_owner);
+            });
+
+    +body()
+        +modal_select_brand()
+        .content-container
+            .page-content
+                h3.pull-left= owner.name
+                .clearfix
+                .hidden.details-container
+                    form.form-horizontal
+                        .form-group
+                            label.col-xs-3.col-sm-3.control-label Name
+                                div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The brand owner's name. ")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                            .col-xs-9
+                                input.form-control.brand-owner-name(value=owner.name)
+                        .form-group
+                            label.col-xs-3.col-sm-3.control-label Link
+                                div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The brand owner's primary website.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                            .col-xs-9
+                                input.form-control.brand-owner-link(value=owner.link)
+                    button.btn.btn-sm.btn-cancel.btn-cancel-brand-owner.pull-right(style="margin-left: 10px;") Cancel
+                    button.btn.btn-sm.btn-success.btn-save-brand-owner.pull-right Save
+                    .clearfix(style="padding-bottom: 10px;")
+                    hr
+                h3.pull-left Brands
+                .pull-right
+                    button.btn.btn-sm.btn-info.edit-brand-owner(data-id=owner._id.toHexString(), style="margin-right: 5px;") Edit Brand Owner
+                    button.btn.btn-sm.btn-danger.delete-brand-owner-button(style="margin-right: 5px;") Delete Brand Owner
+                    button.btn.btn-sm.btn-info.add-brand-button Add Brand
+                .clearfix
+                +brands_table()
+                +table_pager()
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

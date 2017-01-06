@@ -1,0 +1,43 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/util/platform-util.js")
+        include ./widgets/products-typeahead
+        script.
+            var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+        script(src="/js/products-find.js")
+        style.
+            .results-container a {
+                cursor: pointer;
+            }
+            .btn-load-more {
+                background-color: #05d657;
+                background-image: none;
+            }
+            .title-row .btn-clear {
+                margin-top: 10px;
+                margin-left: 5px;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                .container
+                    -if(typeof(missing_code) != 'undefined')
+                        .text-center(style="margin-top: 20px; margin-bottom: 20px;")
+                            h4(style="text-shadow: none; color: #333;")= "No product with code " + missing_code + " was not found"
+                    div(style="max-width: 600px; margin-left: auto; margin-right: auto;")
+                        +products_typeahead()
+                    .results-count
+                    div(style="padding-bottom: 1px; margin-top: 10px;")
+                        .results-container
+                        .recent-products-container.hidden
+                            .title-row(style="display: inline-flex;")
+                                h4 Recent Searches:
+                                div
+                                    button.btn.btn-success.btn-xs.btn-clear Clear
+                            .product-results-container
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

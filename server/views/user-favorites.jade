@@ -1,0 +1,20 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/favorites-opts.css')
+        script(src="/js/user-favorites.js")
+        script.
+            $(function() {
+                var user = !{typeof(user) != 'undefined' ? JSON.stringify(user) : '{};'};
+                user_favorite_page.init(user);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    h3=title
+                    .user-favorites-container
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

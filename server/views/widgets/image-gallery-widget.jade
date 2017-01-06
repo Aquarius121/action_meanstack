@@ -1,0 +1,14 @@
+block append scripts
+    link(type='text/css', href='/stylesheets/image-gallery/blueimp-gallery.min.css',  rel='stylesheet')
+    script(src="/js/tpl/image-gallery/blueimp-gallery.min.js")
+    script(src="/js/widgets/image-gallery-widget.js")
+    style.
+        .blueimp-gallery > .delete {
+            right: 65px;
+            left: auto;
+            margin: -15px;
+            text-decoration: none;
+            cursor: pointer;
+            position: fixed;
+            top:  28px;
+        }

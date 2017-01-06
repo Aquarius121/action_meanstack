@@ -1,0 +1,38 @@
+include layout
+
+doctype html
+html
+    +head()
+        include widgets/product-summary-widget
+        include ./widgets/fixed-footer
+        script(src="/js/product-confirm.js")
+        script.
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+
+                product_summary_widget.init('', product, brand, $('.product-result'), caller);
+            });
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+    +body()
+        .content-container
+            .page-content
+                .container
+                    .text-center
+                        -if(typeof(product.images) != 'undefined' && product.images.length > 0)
+                            img.product-image(src=product.images[0])
+                        h3 Is this your product?
+                        div
+                            //-a.btn.btn-danger(href="/products/find/view")
+                            a(href="/products/find/view")
+                                img(src="/img/no.png", style="max-height: 45px;")
+                            //-a.btn.btn-success(href="/product/view/" + product.ean, style="margin-left: 10px;")
+                            a(href="/product/view/" + product.ean, style="margin-left: 10px;")
+                                img(src="/img/yes.png", style="max-height: 45px;")
+                    div(style="margin-top: 20px;")
+                        +product_summary_widget()
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

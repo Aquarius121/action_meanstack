@@ -1,0 +1,1019 @@
+#%RAML 0.8
+title: Action!
+version: 1
+documentation:
+ - title: API
+   content: |
+     [Action!](http://theactionapp.com)
+/login:
+    post:
+        description: Logins into an existing account.
+        body:
+            application/json:
+                example: |
+                    {
+                        "email": "john@example.com",
+                        "password": "super_secret"
+                    }
+                schema: |
+                    {
+                        "$schema": "http://json-schema.org/draft-03/schema",
+                        "properties": {
+                            "email": {
+                                "required": true,
+                                "type": "string"
+                            },
+                            "password": {
+                                "required": true,
+                                "type": "string"
+                            }
+                        },
+                        "required": true,
+                        "type": "object"
+                    }
+        responses:
+            200:
+                description: User is now logged in.  Store the "set-cookie" header from the response for authenticated requests.
+            500:
+                description: User account not found, or the provided password is not correct.
+/logout:
+    get:
+        description: Logs out the current user.
+        responses:
+            200:
+                description: Logout complete.
+            301:
+                description: Redirects on completion.  Only done when redirect parameter is specified.
+        queryParameters:
+            redirect:
+                description: Optional parameter.  When "true", redirects when logout complete.
+    post:
+        description: Logs out the current user.
+        responses:
+            200:
+                description: Logout complete.
+/user:
+    put:
+        body:
+            application/json:
+                schema: |
+                    {
+                        "$schema": "http://json-schema.org/draft-03/schema",
+                        "properties": {
+                            "username": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 6
+                            },
+                            "password": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 6
+                            },
+                            "email": {
+                                "required": true,
+                                "type": "string"
+                            },
+                            "first_name": {
+                                "required": true,
+                                "type": "string"
+                            },
+                            "last_name": {
+                                "required": true,
+                                "type": "string"
+                            },
+                            "street": {
+                                "required": false,
+                                "type": "string"
+                            },
+                            "zip": {
+                                "required": false,
+                                "type": "string"
+                            },
+                            "phone": {
+                                "required": true,
+                                "type": "string"
+                            },
+                            "age_range": {
+                                "required": true,
+                                "enum": ["1", "2", "3", "4", "5", "6", "7"],
+                                "description": "1 = NONE, 2 = 12 and under, 3 = 13-17, 4 = 18-20, 5 = 21-34, 6 = 35-54, 7 = 55+"
+                            }
+                        },
+                        "required": true,
+                        "type": "object"
+                    }
+        description: Creates a new user.
+        responses:
+            200:
+                description: User has been created.  The user's data will be in the response body, without its password.
+                body:
+                    application/json:
+            500:
+                description: An error has occurred.
+                body:
+                    text/html:
+                        example: |
+                            "username already exists"
+    /lost-password:
+        post:
+            body:
+                application/json:
+                    example: |
+                        {
+                            "email": "john@example.com"
+                        }
+            description: Causes a forgot email password to be sent to the supplied email address.
+            responses:
+                200:
+                    description: An email was sent to the supplied email address.
+
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+                            example: |
+                                "an email must be provided"
+    /reset-password:
+        get:
+            description: The destination for forgot password links.  Will confirm the token from the email and add a flag in the session for the user to be allowed to change their password.
+            queryParameters:
+                e:
+                    description: The email address of the account whose password is to be reset.
+                token:
+                    description: The generated token that is to be matched with the reset password request.
+            responses:
+                301:
+                    description: The token has been matched.  The session has been marked as capable of password reset for the logged-in user.
+                500:
+                    description: An error has occurred.
+                    body:
+                        text/html:
+                            example: |
+                                "we were not expecting a password reset for this user"
+        post:
+            description: Allows the user to specify a new password.
+            responses:
+                200:
+                    description: The password specified will be the new password.
+                    body:
+                        application/json:
+                            example: |
+                                {
+                                    "result": "ok"
+                                }
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+                            example: |
+                                "reset information not found"
+            body:
+                application/json:
+                    example: |
+                        {
+                            "pass": "super_secret"
+                        }
+    /{id}:
+        /content:
+            get:
+                description: Gets the content for the specified user.
+        get:
+            description: Get the specified user by id.  Excludes password and content fields.
+            responses:
+                200:
+                    body:
+                        application/json:
+                500:
+                    description: An error has occurred.
+                    body:
+                        text/html:
+        post:
+            description: Updates the specified user's information.  When updating as admin, it also updates the list of managed brands for the user.
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: |
+                                {
+                                    "update_count": "1"
+                                }
+                404:
+                    description: User does not exist or the caller does not have access to update the user.
+                    body:
+                        text/html:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+        delete:
+            description: Deletes the specified user.
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: |
+                                {
+                                    "remove_count": "1"
+                                }
+                404:
+                    description: User does not exist or the caller does not have access to update the user.
+                    body:
+                        text/html:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+        /{brand}:
+            put:
+                description: Adds a manageable brand for the given user.
+                responses:
+                    200:
+                        body:
+                            application/json:
+                                example: |
+                                    {
+                                        "update_count": "1"
+                                    }
+                    404:
+                        description: User does not exist or the caller does not have access to update the user.
+                        body:
+                            text/html:
+                    500:
+                        description: An error occurred.
+                        body:
+                            text/html:
+        /content:
+            post:
+    get:
+        description: Queries the user list.
+        queryParameters:
+            sort:
+            filter:
+            page:
+            pageSize:
+        responses:
+            200:
+                body:
+                    application/json:
+                        schema: |
+                            {
+                                "$schema": "http://json-schema.org/draft-03/schema",
+                                "properties": {
+                                    "rows": {
+                                        "required": true,
+                                        "type": "array"
+                                    },
+                                    "total_count": {
+                                        "required": true,
+                                        "type": "array"
+                                    }
+                                },
+                                "required": true,
+                                "type": "object"
+                            }
+            404:
+                description: User does not have access to query the user list.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "An error occurred: some error"
+/product:
+    put:
+        description: Creates a product.
+        body:
+            application/json:
+                example: |
+                    {
+                        "name": "test product",
+                        "ean": "0123456789012",
+                        "upc": "012345678901"
+                    }
+                schema: |
+                    {
+                        "$schema": "http://json-schema.org/draft-03/schema",
+                        "properties": {
+                            "name": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "ean": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 13,
+                                "maxLength": 13
+                            },
+                            "upc": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 12,
+                                "maxLength": 12
+                            }
+                        },
+                        "required": true,
+                        "type": "object"
+                    }
+        responses:
+            200:
+                description: The product has been created.
+                body:
+                    application/json:
+            404:
+                description: User does not have access to create products.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "an ean must be 13 characters"
+    /{code}:
+        get:
+            description: Get a product by ean or upc.
+            responses:
+                200:
+                    body:
+                        application/json:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+    /{ean}:
+        /where-to-buy:
+            get:
+                description: Gets nearby locations for products.
+                queryParameters:
+                    product-upc:
+                    customer:
+                    zip:
+                    lat:
+                    lon:
+                    radius:
+    /{id}:
+        delete:
+            description: Deletes a product.
+            responses:
+                200:
+                    body:
+                        application/json:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+        post:
+            description: Updates the specified product.
+            queryParameters:
+                properties:
+                    description: (OPTIONAL) Defines which property set is to be updated.  Can be "basic" or "self-help"
+            responses:
+                200:
+                    body:
+                        application/json:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+/products:
+    get:
+        description: Queries for products that can be managed by the caller.
+        queryParameters:
+            sort:
+            filter:
+            page:
+            pageSize:
+        responses:
+            200:
+                body:
+                    application/json:
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+    /find:
+        get:
+            description: Queries products based on a single string.  Uses ean, upc, brand fields for search.
+            queryParameters:
+                ean_or_name:
+                limit:
+                page:
+                pageSize:
+            responses:
+                200:
+                    body:
+                        application/json:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+    /:idList:
+        /brand:
+            post:
+                description: Moves a set of products to a specific brand.
+/brand:
+    /{id}:
+        /content:
+            post:
+                description: Uploads content and associates it to the specified brand.
+                responses:
+                    200:
+                        body:
+                            application/json:
+                    404:
+                        description: Brand not found, or caller does not have access to update the brand.
+                        body:
+                            text/html:
+                    500:
+                        description: An error occurred.
+                        body:
+                            text/html:
+            delete:
+                description: Deletes content associated with a brand.
+        /features:
+            post:
+                description: A utility process to make it easy to feature and unfeature large swaths of products in a brand.  Does not influence SOLR, so a product improvement should be run upon completion.
+        post:
+            description: Updates a brand.
+        /styling:
+            post:
+                description: Updates the styling for a brand.
+        delete:
+            description: Deletes the specified brand.
+            responses:
+                200:
+                    description: The brand has been deleted.
+                404:
+                    description: The brand is either not found, or the caller does not have access to the brand provided.
+                500:
+                    description: An error occurred.
+        /products:
+            get:
+                description: Exports products for the given brand.  Currently, only xlsx format.  To get products for a brand, use /products with brandId filter.
+                responses:
+                    200:
+                        description: Payload in response body that represents an xlsx document.
+                    404:
+                        description: Inadequate permissions for the given brand, or the brand was not found.
+                    500:
+                        description: An error occurred.  Most likely, the id was mal-formatted.
+    /{idList}:
+        get:
+            description: Gets a set of brands.
+            responses:
+                200:
+                    body:
+                        application/json:
+                            schema: |
+                                {
+                                    "$schema": "http://json-schema.org/draft-03/schema",
+                                    "minItems": 0,
+                                    "items": {
+                                        "type": "brand"
+                                    },
+                                    "required": true,
+                                    "type": "array"
+                                }
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+    put:
+        description: Creates a brand.
+        body:
+            application/json:
+                schema: |
+                    {
+                        "$schema": "http://json-schema.org/draft-03/schema",
+                        "properties": {
+                            "name": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "link": {
+                                "required": false,
+                                "type": "string"
+                            }
+                        },
+                        "required": true,
+                        "type": "object"
+                    }
+        responses:
+            200:
+                body:
+                    application/json:
+                        schema: |
+                            {
+                                "$schema": "http://json-schema.org/draft-03/schema",
+                                "minItems": 1,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "required": true,
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "required": true,
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "link": {
+                                            "required": false,
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": true,
+                                "type": "array"
+                            }
+            404:
+                description: The caller does not have access to create brands.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "please provide a name"
+    get:
+        description: Queries the brand list.
+        queryParameters:
+            sort:
+            filter:
+            page:
+            pageSize:
+        responses:
+            200:
+                body:
+                    application/json:
+            404:
+                description: The caller does not have access to query brands.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+/brand-owner:
+    put:
+        description: Creates a brand owner.
+        body:
+            application/json:
+                schema: |
+                    {
+                        "$schema": "http://json-schema.org/draft-03/schema",
+                        "properties": {
+                            "name": {
+                                "required": true,
+                                "type": "string",
+                                "minLength": 1
+                            }
+                        },
+                        "required": true,
+                        "type": "object"
+                    }
+        responses:
+            200:
+                body:
+                    application/json:
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+    /{id}:
+        post:
+            responses:
+                200:
+                    body:
+                        application/json:
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+                            example: |
+                                "invalid id"
+        delete:
+    get:
+        description: Queries the brand owners list.
+        queryParameters:
+            sort:
+            filter:
+            page:
+            pageSize:
+        responses:
+            200:
+                body:
+                    application/json:
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+/message:
+    put:
+        description: Sends a message to the CRM.  May either provide ean or reply_to in either the body or query params.
+        body:
+            application/json:
+                example: |
+                    {
+                        "text": "product message",
+                        "ean": "0123456789012",
+                        "files": []
+                    }
+    post:
+        description: A synonym for /message PUT
+    /{id}:
+        post:
+            description: Updates a message.  Currently only updates the state of a message.
+/messages:
+    get:
+        description: Gets the message history for the caller.
+    /error:
+        /{id}:
+            delete:
+                description: Delete a messaging error record.  Must be admin user.
+    /errors:
+        get:
+            description: An admin route designed to list errors that occurred in message processing (globally).
+    /unread:
+        get:
+            description: Gets unread messages for the given user.  Designed to be polled.
+    /responses:
+        get:
+            description:
+            queryParameters:
+                state:
+/favorite:
+    put:
+        description: Adds a favorite for the specified user.
+        queryParameters:
+            id:
+                description: The user to whom the favorite is to be added.
+            brand:
+                description: The id of the brand to add as a favorite.  Can be provided with a product.
+            product:
+                description: The id of the product to add as a favorite.  Can be provided with a brand.
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            {
+                                result: "ok"
+                            }
+            404:
+                description: Caller does not have access to edit the user specified by the id provided.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "invalid id for brand"
+    delete:
+        description: Removes a favorite for the specified user.
+        queryParameters:
+            id:
+                description: The user from whom the favorite is to be removed.
+            brand:
+                description: The id of the brand to add as a favorite.  Can be provided with a product.
+            product:
+                description: The id of the product to add as a favorite.  Can be provided with a brand.
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            {
+                                result: "ok"
+                            }
+            404:
+                description: Caller does not have access to edit the user specified by the id provided.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "invalid id for brand"
+/favorites:
+    get:
+        description: Gets the favorites for a user.
+        queryParameters:
+            id:
+                description: user id for the user whose favorites are to be listed.
+        responses:
+            200:
+                body:
+                    application/json:
+                        schema: |
+                            {
+                                "$schema": "http://json-schema.org/draft-03/schema",
+                                "minItems": 0,
+                                "items": {
+                                    "brands": {
+                                        "type": "array"
+                                    },
+                                    "products": {
+                                        "type": "array"
+                                    }
+                                },
+                                "required": true,
+                                "type": "array"
+                            }
+            404:
+                description: Caller does not have access to edit the user specified by the id provided.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "id must be supplied"
+/opt-in:
+    put:
+        description: Opts into a product or brand for the specified user.
+        queryParameters:
+            id:
+                description: The user to whom the opt-in is to be added.
+            brand:
+                description: The id of the brand to opt into.  Can be provided with a product.
+            product:
+                description: The id of the product to opt into.  Can be provided with a brand.
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            {
+                                result: "ok"
+                            }
+            404:
+                description: Caller does not have access to edit the user specified by the id provided.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "invalid id for brand"
+    delete:
+        description: Removes an opt-in for the specified user.
+        queryParameters:
+            id:
+                description: The user from whom the opt-in is to be removed.
+            brand:
+                description: The id of the brand to opt into.  Can be provided with a product.
+            product:
+                description: The id of the product to opt into.  Can be provided with a brand.
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            {
+                                result: "ok"
+                            }
+            404:
+                description: Caller does not have access to edit the user specified by the id provided.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "invalid id for brand"
+/opt-ins:
+    get:
+        description: Gets the brands and products the user has opted into.
+        queryParameters:
+            id:
+                description: user id for the user whose opt-ins are to be listed.
+        responses:
+            200:
+                body:
+                    application/json:
+                        schema: |
+                            {
+                                "$schema": "http://json-schema.org/draft-03/schema",
+                                "minItems": 0,
+                                "items": {
+                                    "brands": {
+                                        "type": "array"
+                                    },
+                                    "products": {
+                                        "type": "array"
+                                    }
+                                },
+                                "required": true,
+                                "type": "array"
+                            }
+            404:
+                description: Caller does not have access to edit the user specified by the id provided.
+                body:
+                    text/html:
+                        example: |
+                            "not found"
+            500:
+                description: An error occurred.
+                body:
+                    text/html:
+                        example: |
+                            "id must be supplied"
+/facebook:
+    /login:
+        get:
+            description: Redirects the user to Facebook for OAuth.
+    /oauth:
+        get:
+            description: The return endpoint for Facebook OAuth.
+    /me:
+        post:
+            description: A method to tie Facebook information to the caller's user record.
+/google:
+    /plus:
+        /login:
+            get:
+                description: Redirects the user to Google Plus for OAuth.
+        /oauth:
+            get:
+                description: The return endpoint for Google Plus OAuth.
+/faq:
+    /enlight:
+        /{tenant}:
+            /category:
+                /{category}:
+                    get:
+                        description: Gets a specified category.
+            /categories:
+                get:
+                    description: Lists categories.
+            /document:
+                /{document}:
+                    get:
+                        description: Gets a document.
+    /astute-knowledge:
+        /session:
+            get:
+        /dialog:
+            get:
+        /dialog-history:
+            get:
+/system:
+    /resources:
+        get:
+            description: Returns various system resource usage metrics (e.g. CPU, memory, disk)
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: |
+                                {
+                                    cpu: {},
+                                    disk: {},
+                                    info: {},
+                                    database: {},
+                                    status: {},
+                                    solr_connected: true
+                                }
+                404:
+                    description: The caller does not have access to system resource listings.
+                    body:
+                        text/html:
+                            example: |
+                                "not found"
+/report:
+    /{type}:
+        /{brand}:
+            get:
+                description: Gets a specific report (by query param type) for a given brand
+        get:
+            description: Gets a specific report (by query param type) and report type
+/reference:
+    /postal-code:
+        get:
+            description: Gets the postal code(s) for a given geodetic coordinate pair.
+        post:
+            description: Establishes postal code database contents.
+/admin:
+    /products:
+        post:
+            description: Run various admin and processing tasks on the cataloged products.  Admin only.
+            queryParameters:
+                action:
+                    description: may be one of ['remove-unbranded', 'rebuild-indices', 'optimize-solr']
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: |
+                                {
+                                    result: "began"
+                                }
+                404:
+                    description: The caller does not have access to this admin function.
+                    body:
+                        text/html:
+                            example: |
+                                "not found"
+                500:
+                    description: An error occurred.
+                    body:
+                        text/html:
+                            example: |
+                                "unrecognized action"
+    /reports:
+        post:
+            description: Forces a report-processing cycle.  Admin only.
+            queryParameters:
+                action:
+                    description: may be one of ['process']
+            responses:
+                200:
+                    body:
+                        application/json:
+                            example: |
+                                {
+                                    result: "began"
+                                }
+                404:
+                    description: The caller does not have access to this admin function.
+                    body:
+                        text/html:
+                            example: |
+                                "not found"
+    /user:
+        /{id}:
+            post:
+                description: Administer user's account.
+                responses:
+                    200:
+                        body:
+                            application/json:
+                                example: |
+                                    {
+                                        result: "ok"
+                                    }
+                    404:
+                        description: The caller does not have access to this admin function.
+                        body:
+                            text/html:
+                                example: |
+                                    "not found"
+                    500:
+                        description: The caller does not have access to this admin function.
+                        body:
+                            text/html:
+/nlp:
+    post:
+        description: Queries the NLP learner for the sentiment of a text body.
+    /train:
+        post:
+            description: Trains the NLP learner.  Sentiment must be "positive", "negative", "neutral"
+            body:
+                application/json:
+                    example: |
+                        {
+                            text: "I like this product"
+                            sentiment: "positive"
+                        }
+/feedback:
+    get:
+    put:
+/survey:
+    get:
+    put:
+    /{id}:
+        put:
+/config:
+    get:
+    put:

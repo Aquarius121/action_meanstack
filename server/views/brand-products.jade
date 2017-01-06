@@ -1,0 +1,20 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/favorites-opts.css')
+        script(src="/js/brand-products.js")
+        script.
+            $(function() {
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'new Object();'};
+                brand_products_page.init(brand);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    .brand-info-container
+                    .product-results-container
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

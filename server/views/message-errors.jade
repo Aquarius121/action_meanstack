@@ -1,0 +1,13 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/widgets/error-message-accordion.js")
+        script(src="/js/message-errors.js")
+    +body()
+        .content-container
+            .page-content
+                h3 Message Errors
+                .message-errors-container
+

@@ -1,0 +1,22 @@
+include layout
+
+doctype html
+html
+    +head()
+        //-accordion_{{=value._id}}
+        //-collapse_{{=value._id}}
+        script(src="/js/user-history.js")
+        script.
+            $(function() {
+                var user_id = !{typeof(user_id) != 'undefined' ? '"' + user_id + '"' : '"";'};
+                user_history_page.init(user_id, true);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    h3=title
+                    .resolved-survey-container
+                    .user-message-container
+                    .text-center
+                        .rating-container

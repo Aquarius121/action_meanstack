@@ -1,0 +1,26 @@
+include ../widgets/brand-select
+
+block append scripts
+    script(src="/js/tpl/jquery.elastic.source.js")
+
+mixin product_form_contents(caller, product)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Name
+            .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The consumer-friendly name for this product.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            input.form-control.product-name(value= product.name)
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Brand
+        .col-xs-12.col-sm-10
+            mixin brand_select('.brand-select', 'min-width: 200px;', brand)
+            -if(typeof(brand) != 'undefined')
+                a(href='/brand/view/' + brand._id.toHexString(), style="margin-left: 10px;").brand-link.hidden
+                    i.fa.fa-search
+    hr
+    .form-group
+        label.col-xs-12.col-sm-2.control-label Active
+            .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="Whether or not the product is to appear in search results.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-10
+            input.featured(type="checkbox", style="margin-top: 10px;", checked= product.feature_weight && product.feature_weight > 0)

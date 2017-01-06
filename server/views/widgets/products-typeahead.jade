@@ -1,0 +1,44 @@
+mixin products_typeahead()
+    .products-typeahead-widget.input-group
+        input.code-entry.form-control(placeholder="product name or upc/ean" style="padding-right:45px")
+        span.input-group-addon(style="padding: 0; border: none; background: none;")
+
+            div.cancel-btn(style="margin-left: -40px; margin-top: 10px; position: absolute; z-index:1049")
+                img(src="/img/cancel1.png" style="width:30px")
+            button.search.btn.btn-success(style="margin-left: 5px; margin-top: -1px;") search
+
+block append scripts
+    script(src="/js/tpl/typeahead.bundle.min.js")
+    style.
+        input.code-entry {
+            height: 50px;
+        }
+        .tt-dropdown-menu {
+            background-color: #fff;
+            border: 1px solid #000;
+            color: #333;
+            width: 100%;
+            max-height: 250px;
+            overflow-y: auto;
+            top: 50px !important;
+        }
+        .tt-suggestion.tt-cursor {
+            background-color: #ccc;
+        }
+        .tt-suggestion:nth-child(even) {
+            background-color: #e2e2e2;
+        }
+        .tt-suggestion.tt-cursor:nth-child(even) {
+            background-color: #ccc;
+        }
+        .tt-suggestion>p {
+            margin-bottom: 3px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .tt-suggestion strong {
+            text-transform: none;
+        }
+        .twitter-typeahead {
+            display: block !important;
+        }

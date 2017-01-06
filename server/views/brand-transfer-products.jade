@@ -1,0 +1,24 @@
+include layout
+
+doctype html
+html
+    +head()
+        include ./widgets/products-table
+        script(src="/js/brand-transfer-products.js")
+        script.
+            $(function() {
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'new Object();'};
+                brand_transfer_products_page.init(brand);
+            });
+
+    +body()
+        .content-container
+            .page-content
+                h3 All Products
+                +products_table(undefined, true)
+                mixin table_pager()
+                h3= "Products to Import into " + brand.name
+                .importable-products-container
+                .pull-right
+                    button.btn.btn-warning.btn-submit.hidden Transfer
+                .clearfix

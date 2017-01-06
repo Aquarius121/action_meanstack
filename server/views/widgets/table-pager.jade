@@ -1,0 +1,17 @@
+mixin table_pager(pager_class)
+    .pager.text-center(style="width: 100%", class=pager_class)
+        button.btn.btn-xs.btn-default.first(style="border-radius: 5px; margin-right: 5px;")
+            i.fa.fa-fast-backward(style="padding-left: 0;")
+        button.btn.btn-xs.btn-default.prev(style="border-radius: 5px; margin-right: 5px;")
+            i.fa.fa-backward(style="padding-left: 0;")
+        input(type="text", disabled="disabled", style="text-align: center;").pagedisplay
+        button.btn.btn-xs.btn-default.next(style="border-radius: 5px; margin-left: 5px; margin-right: 5px;")
+            i.fa.fa-forward(style="padding-left: 0;")
+        button.btn.btn-xs.btn-default.last(style="border-radius: 5px; margin-right: 5px;")
+            i.fa.fa-fast-forward(style="padding-left: 0;")
+        select.pagesize(style="width: auto; margin-right: 5px;")
+            option(selected="selected", value="15") 15
+            option(value="30") 30
+            option(value="100") 100
+            option(value="250") 250
+        | per page

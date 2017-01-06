@@ -1,0 +1,192 @@
+
+mixin product_import_table()
+    mixin table_editable_td(absolute_sizing, maxlength)
+        div(data-bind="visible:hide()==false" style="position:relative;")
+            -if(absolute_sizing)
+                label(data-bind="text:value, visible:isEditing() == false", style="margin-left:11px; margin-right:11px; margin-top:8px; margin-bottom:8px; cursor:text; position: absolute; top: 0px; left: 0px; right: 20px; white-space: nowrap; overflow:hidden; text-overflow: clip;")
+            -else
+                label(data-bind="text:value, visible:isEditing() == false", style="margin-left:11px; margin-right:11px; margin-top:8px; margin-bottom:8px; cursor:text; max-width:250px; white-space: nowrap; overflow:hidden; text-overflow: clip")
+            input(data-bind="value:value, visible:isEditing, hasfocus:isEditing", class="form-control", maxlength=maxlength, style="padding-right:8px")
+            span(data-bind="visible:isValid()==false, tooltip: {title: validationErrorMessage, placement: 'top'}", class="glyphicon glyphicon-warning-sign", style="color: red; font-size:15px; position:absolute; z-index:200; margin:10px; right:0px")
+            span(data-bind="visible:hasChanged() && isValid(), tooltip: {title: 'Click to revert changes to: ' + originalValue(), placement: 'top'}, click: revert", class="glyphicon glyphicon-retweet" style="color: lightGray; font-size:15px; position:absolute; z-index:200; margin:10px; right:0px")
+    mixin table_detail_td(modal_title)
+        div(data-bind="visible:hide()==false" style="position:relative;")
+            label(data-bind="click:edit", style="margin-left:15px; margin-top:8px; margin-right:30px; margin-bottom:8px; width:auto; cursor:pointer;")
+                i(data-bind="style: { color: hasChanged() ? 'green' : hasValue() ? 'black' : 'lightGray' }", class="fa fa-list-alt")
+            span(data-bind="visible:isValid()==false, tooltip: {title: validationErrorMessage, placement: 'top'}" class="glyphicon glyphicon-warning-sign" style="color: red; font-size:15px; position:absolute; z-index:200; margin:10px; right:0px")
+            span(data-bind="visible:hasChanged() && isValid(), tooltip: {title: 'Click to revert changes to: ' + originalValue(), placement: 'top'}, click: revert" class="glyphicon glyphicon-retweet" style="color: lightGray; font-size:15px; position:absolute; z-index:200; margin:10px; right:0px")
+            div(data-bind="style { display: isEditing()==false ? 'none' : 'block' }", class="modal" style="display: none" tabindex="-1")
+                div(class="modal-dialog")
+                    div(class="modal-content")
+                        -if(modal_title)
+                            .modal-header
+                                h3=modal_title
+                        div(class="modal-body")
+                            textarea(rows=10, data-bind="value:value", class="form-control textarea", style="max-width: 100%;")
+                        div(class="modal-footer")
+                            button(data-bind="click:finishEdit" class="btn btn-primary") Close
+    mixin table_input_td(watermark, iconCssClass)
+            span(style="color: lightGray; font-size:15px; position:absolute; z-index:200; margin:10px; left:0px", class=iconCssClass)
+            input(data-bind="value:value", class="form-control", maxlength="200", style="padding-left: 25px; padding-right:25px", placeholder=watermark)
+            span(data-bind="visible:isValid()==false, tooltip: {title: validationErrorMessage, placement: 'top'}", class="glyphicon glyphicon-warning-sign", style="color: red; font-size:15px; position:absolute; z-index:200; margin:10px; right:0px")
+            span(data-bind="visible:hasChanged() && isValid(), tooltip: {title: 'Click to revert changes to: ' + originalValue(), placement: 'top'}, click: revert", class="glyphicon glyphicon-retweet" style="color: lightGray; font-size:15px; position:absolute; z-index:200; margin:10px; right:0px")
+    mixin icon(databind, tooltip)
+        span(data-bind="style: { color: " + databind + ".isValid()?" + databind + ".hasValue()?'green':'#cccccc':'red' },tooltip: {title: '" + tooltip + "', placement: 'top'}" style="margin-right:10px;")&attributes(attributes)
+    mixin modal_input(databind, watermark, iconCssClass)
+        div(data-bind="with: " + databind + "" style="position:relative; margin-bottom:5px")
+            +table_input_td(watermark, iconCssClass)
+    div(class="panel panel-default")
+        div(class="panel-heading") Import Summary
+        div(data-bind="visible:saveComplete() == false" class="panel-body")
+            div(class="col-md-1")
+                a(data-bind="click: filterReset" href="#") All
+                    span(data-bind="text:totalCount", class="badge alert-info pull-right")
+            div(class="col-md-2")
+                span(class="glyphicon glyphicon-plus" style="color: green; font-size:15px; margin-right:10px;")
+                a(data-bind="click: filterNew" href="#") New Products
+                    span(data-bind="text:newCount", class="badge alert-info pull-right")
+            div(class="col-md-2")
+                span(class="glyphicon glyphicon-refresh" style="color: green; font-size:15px; margin-right:10px;")
+                a(data-bind="click: filterUpdate" href="#") Pending Update
+                    span(data-bind="text:updateCount", class="badge alert-info  pull-right")
+            div(class="col-md-2")
+                span(class="glyphicon glyphicon-warning-sign" style="color: red; font-size:15px; margin-right:10px;")
+                a(data-bind="click: filterError", href="#") With Errors
+                    span(data-bind="text:errorCount", class="badge alert-info pull-right")
+            div(class="col-md-2")
+                span(class="glyphicon glyphicon-warning-sign" style="color: red; font-size:15px; margin-right:10px;")
+                a(data-bind="click: filterBrandError", href="#") Brand Exception
+                    span(data-bind="text:notUnderBrandCount", class="badge alert-info pull-right")
+            .pull-right
+                button(class="btn btn-sm btn-danger", data-bin="click:validateEans", syle="margin-left: 10px;") Validate eans
+                button(class="btn btn-sm btn-primary", data-bind="click:save", style="margin-left:10px") Save products to brand
+        div(data-bind="visible:saveComplete" class="panel-body")
+            span A total of&nbsp;
+            span(data-bind="text:countImported")
+            span  new products were imported and a total of&nbsp;
+            span(data-bind="text:countUpdated")
+            span  products have been updated. Existing items with no changes are not listed. The following item(s) did not get imported or updated because they were duplicates, had validation errors or belong to another brand.&nbsp;&nbsp;
+            a(data-bind="attr: {href: '/brand/view/' + brand }")   Click Here
+            span  to return to return to the brand page.
+    div
+        table.table.table-bordered.product-import-table(style="display: none;")
+            thead
+                tr
+                    th(class="col-lg-1" style="width: 20px;")
+                    th(class="col-lg-1" style="padding-left:15px; width:200px;") Brand Name
+                    th(class="col-lg-1" style="padding-left:15px; width:145px") EAN
+                    th(class="col-lg-1" style="width: 20px;")
+                    th(class="col-lg-3" style="padding-left:15px; width: auto;") Name
+                    th(class="col-lg-1" style="padding-left:7px; width:30px; padding-right: 5px;") Actv?
+                    th(class="col-lg-2" style="padding-left:15px; width: 20px;") Media
+                    th(class="col-lg-1" style="padding-left:15px; min-width:80px") Contact Info
+                    th(class="col-lg-1" style="padding-left:15px; width: 20px;") Msg.
+                    th(class="col-lg-1" style="padding-left:15px; width: 20px;") FAQ
+                    th(class="col-lg-1" style="padding-left:15px; width: 20px;") Ingr.
+                    th(class="col-lg-1" style="padding-left:15px; width: 20px;") Inst.
+                    th(class="col-lg-1" style="padding-left:15px; width: 20px;") Auto.
+                    th(class="col-lg-1" style="width: 20px;")
+            tbody(data-bind="foreach:visibleData")
+                tr(data-bind="css: { warning: (isValid() == false || belongsToAnotherBrand() || isDuplicate() == true || hasBrandName() == false) }, visible: isSaved() == false")
+                    td
+                        div(style="margin:10px; margin-bottom:0px")
+                            span(data-bind="visible: belongsToAnotherBrand,tooltip: {title: 'This product already belongs to the another brand (' + existingBrandName() + ')', placement: 'right'}", class="glyphicon glyphicon-warning-sign" style="color: red; font-size:15px")
+                            span(data-bind="visible: isValid() && belongsToAnotherBrand() != true && isDuplicate() == false && hasBrandName() == true" class="glyphicon glyphicon-check" style="color: green; font-size:15px")
+                    td(data-bind="with: brand_name, click:brand_name.edit")
+                        +table_editable_td(true, 200)
+                    td(data-bind="with: ean, click:ean.edit")
+                       +table_editable_td(false, 13)
+                    td(style="padding-left: 10px;")
+                       div(data-bind="click: toggleMasterEan" class="toggle-area" style="margin-left: 2px;")
+                           +icon('masterEan', 'Master Ean')(class="fa fa-download")
+                       div(data-bind="style { display: editMasterEan()==false ? 'none' : 'block' }", class="modal" style="display: none" tabindex="-1")
+                           div(class="modal-dialog")
+                               div(class="modal-content")
+                                   .modal-header
+                                       h3 Master EAN
+                                   div(class="modal-body")
+                                       div(data-bind="with: masterEan" style="position:relative; margin-bottom:5px")
+                                           +table_input_td(class="fa fa-download")
+                                       div(style="position:relative; margin-bottom:5px")
+                                           input(data-bind="checked: useMasterOnProductInfo" type="checkbox" class="checkbox" style="margin-left:15px; margin-top:8px; display:inline-block")
+                                           span() &nbsp;Product Info
+                                       div(style="position:relative; margin-bottom:5px")
+                                           input(data-bind="checked: useMasterOnLocator" type="checkbox" class="checkbox" style="margin-left:15px; margin-top:8px; display:inline-block")
+                                           span() &nbsp;Where to Buy
+                                   div(class="modal-footer")
+                                       button(data-bind="click:toggleMasterEan" class="btn btn-primary") Close
+                    td(data-bind="with: name, click:name.edit")
+                       +table_editable_td(true, 200)
+                    td(style="padding-left: 10px;")
+                        input(data-bind="checked: searchable" type="checkbox" class="checkbox" style="margin-left:8px; margin-top:8px")
+                    td(style="padding-left: 10px; padding-right: 10px;white-space: nowrap;")
+                        div(data-bind="click: toggleMedia" class="toggle-area")
+                            +icon('backgroundStyle', 'Background Style')(class="fa fa-paint-brush")
+                            +icon('image', 'Product Image')(class="fa fa-file-image-o")
+                            +icon('promoImage', 'Promo Image')(class="fa fa-bullhorn")
+                            +icon('label', 'Product Label')(class="fa fa-tag")
+                            +icon('promoVideo', 'Promo Video')(class="fa fa-file-video-o")
+                        div(data-bind="style { display: editMedia()==false ? 'none' : 'block' }", class="modal" style="display: none" tabindex="-1")
+                            div(class="modal-dialog")
+                                div(class="modal-content")
+                                    .modal-header
+                                        h3 Media
+                                    div(class="modal-body")
+                                        div(class="background-style-container")
+                                            span(class="fa fa-paint-brush")
+                                            span &nbsp;Background Style:&nbsp;
+                                            input(type="radio" data-type="auto" name="background-style" style="margin-right: 6px;" checked="" class="best-image" data-bind="checked: backgroundStyle.value()")
+                                            span Auto
+                                            input(type="radio" data-type="product_image" name="background-style" style="margin-right: 6px; margin-left: 16px;" class="product-image" data-bind="checked: backgroundStyle.value()")
+                                            span Product Image
+                                            input(type="radio" data-type="brand_image" name="background-style" style="margin-right: 6px; margin-left: 16px;" class="brand-image" data-bind="checked: backgroundStyle.value()")
+                                            span Brand Image
+                                            input(type="radio" data-type="color" name="background-style" style="margin-right: 6px; margin-left: 16px;" class="color" data-bind="checked: backgroundStyle.value()")
+                                            span Color
+                                            div(style="display: inline-block; width: 100px; margin-left: 10px")
+                                        br
+                                        +modal_input('image', 'Enter Image Url','fa fa-file-image-o')
+                                        +modal_input('promoImage', 'Enter Promo Image Url','fa fa-bullhorn')
+                                        +modal_input('label', 'Enter Label Image Url','fa fa-tag')
+                                        +modal_input('promoVideo', 'Enter Video Url','fa fa-file-video-o')
+                                    div(class="modal-footer")
+                                        button(data-bind="click:toggleMedia" class="btn btn-primary") Close
+                    td(style="padding-left: 10px; padding-right: 10px;white-space: nowrap;")
+                        div(data-bind="click: toggleSocialLinks" class="toggle-area")
+                            +icon('phone', 'Phone Number')(class="fa fa-phone")
+                            +icon('sms', 'SMS Number')(class="fa fa-mobile-phone")
+                            +icon('facebook', 'Facebook URL')(class="fa fa-facebook")
+                            +icon('twitter', 'Twitter URL')(class="fa fa-twitter")
+                            +icon('instagram', 'Instagram URL')(class="fa fa-instagram")
+                        div(data-bind="style { display: editSocialLinks()==false ? 'none' : 'block' }", class="modal" style="display: none" tabindex="-1")
+                            div(class="modal-dialog")
+                                div(class="modal-content")
+                                    .modal-header
+                                        h3 Contact Info
+                                    div(class="modal-body")
+                                        +modal_input('phone', 'Enter Phone Number','fa fa-phone')
+                                        +modal_input('sms', 'Enter SMS number','fa fa-mobile-phone')
+                                        +modal_input('facebook', 'Enter Facebook Page Url','fa fa-facebook')
+                                        +modal_input('twitter', 'Enter Twitter Url','fa fa-twitter')
+                                        +modal_input('instagram', 'Enter Instagram Url','fa fa-instagram')
+                                    div(class="modal-footer")
+                                        button(data-bind="click:toggleSocialLinks" class="btn btn-primary") Close
+                    td(data-bind="with: message")
+                        +table_detail_td("Message")
+                    td(data-bind="with: faq")
+                        +table_detail_td("FAQ")
+                    td(data-bind="with: ingredients")
+                        +table_detail_td("Ingredients")
+                    td(data-bind="with: instructions")
+                        +table_detail_td("Instructions")
+                    td(data-bind="with: auto_message")
+                        +table_detail_td("Auto message")
+                    td
+                        div(style="margin:10px; margin-bottom:0px")
+                            span(data-bind="visible: existingProduct != null && isDuplicate() == false && doesMatch() == true && hasBrandName() == true", class="glyphicon glyphicon-minus" style="color: green; font-size:15px", title="Existing product will not updated")
+                            span(data-bind="visible: existingProduct != null && isDuplicate() == false && doesMatch() == false && hasBrandName() == true", class="glyphicon glyphicon-refresh" style="color: green; font-size:15px", title="Existing product will be updated")
+                            span(data-bind="visible: existingProduct == null && hasBrandName() == true", class="glyphicon glyphicon-plus" style="color: green; font-size:15px", title="This product is new and will added")
+                            span(data-bind="visible: existingProduct == null && hasBrandName() == false", class="glyphicon glyphicon-question-sign" style="color: green; font-size:15px", title="Product has no brand name")
+
+    block append scripts
+        script(src='/js/tpl/purl.js', type='text/javascript')

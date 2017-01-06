@@ -1,0 +1,112 @@
+include layout
+
+doctype html
+html
+    +head()
+        include ./widgets/brand-tags-widget
+        include ./modals/select-brand
+        include ./widgets/file-upload-widget
+        include ./widgets/image-gallery-widget
+        script.
+            var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+            var user = !{typeof(user) != 'undefined' ? JSON.stringify(user) : 'undefined'};
+        script(src="/js/user.js")
+        - canManageBrands = (caller && (caller.role == 'admin' || caller.role == 'action-admin') && user && user.role == 'brand-manager')
+
+        style.
+            body , html{
+                background-color: #05d657;
+                color: #fff;
+                //padding-bottom: 40px;
+            }
+
+            .profile-form-container select {
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                cursor: pointer;
+            }
+
+            .register-body {
+                background-color: #05d657;
+                color: #fff;
+                padding-bottom: 40px;
+            }
+            .profile-form-container a {
+                color: white;
+            }
+
+            .profile-form-container  div.glyphicon-chevron-down
+            {
+                pointer-events: none;
+            }
+            .content-container {
+                padding-top: 86px;
+            }
+
+            .buttons-container {
+                margin-top: 10px;
+            }
+
+            .profile-image-widget {
+                border-radius: 42px;
+                border: 2px solid #FFF;
+                max-width: 64px !important;
+                max-height: 64px !important;
+                overflow: hidden;
+                /*background-color: #fff;*/
+                text-align: center;
+                margin: auto;
+            }
+
+            .profile-image-container {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .profile-image-widget > img {
+                height: 64px;
+            }
+
+            .terms-label input{
+                width: 60px;
+                height: 60px;
+            }
+
+            .terms-label label {
+                padding-left: 15px;
+            }
+
++body()
+        +modal_select_brand()
+        .content-container
+            .text-center.logo-jumbotron
+                .centered-column
+                    .profile-image-container
+                //img(src="/img/action_logo.png")
+            .centered-column(style="max-width:450px;")
+                .profile-form-container
+                .clearfix
+                -if(canManageBrands)
+                    hr
+                    .form-group.clearfix
+                        label.col-xs-4.col-sm-4.control-label Managed Brands
+                        .col-xs-8.col-sm-8
+                            +brand_tags_widget()
+                .buttons-container
+                    .pull-left
+                        -if(caller.role == 'admin' || caller.role == 'action-admin')
+                            button.btn.btn-danger.delete-button Delete
+                    .pull-right
+                        -if(caller.role == 'admin' || caller.role == 'action-admin')
+                            button.btn.btn-danger.btn-become(style="margin-right: 5px;") Log in as
+                        -if(canManageBrands)
+                            button.btn.btn-info.add-brand-button(style="margin-right: 5px;") Add Brand
+                        button.btn.btn-success.save-button Save
+                        button.btn.btn-cancel.cancel-button(style="margin-left: 10px;") Cancel
+                    .clearfix
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

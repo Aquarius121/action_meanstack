@@ -1,0 +1,64 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/fileupload/jquery.fileupload.css')
+        link(rel='stylesheet', href='/stylesheets/jquery.Jcrop.min.css')
+        script(src="/js/tpl/fileupload/jquery.ui.widget.js")
+        script(src="/js/tpl/fileupload/jquery.fileupload.min.js")
+        script(src="/js/tpl/fileupload/jquery.iframe-transport.js")
+
+        //- load-image
+        script(src="/js/tpl/load-image/load-image.min.js")
+        script(src="/js/tpl/load-image/load-image-ios.js")
+        script(src="/js/tpl/load-image/load-image-orientation.js")
+        script(src="/js/tpl/load-image/load-image-meta.js")
+        script(src="/js/tpl/load-image/load-image-exif.js")
+        script(src="/js/tpl/load-image/load-image-exif-map.js")
+        script(src="/js/tpl/jcrop/jquery.Jcrop.min.js")
+
+        script(src="/js/util/barcode-decode.js")
+        script(src="/js/util/camera.js")
+
+        script(src="/js/index.js")
+
+        include ./modals/contact-support
+        include ./modals/message-sent
+        include widgets/product-summary-widget
+        include ./widgets/products-typeahead
+    +body()
+        .content-container
+            .page-content
+                .col-xs-12
+                    h3 Product Information
+                .col-xs-12
+                    p Type or scan a barcode
+                    div(style="max-width: 400px;")
+                        +products_typeahead()
+                .col-xs-12(style="margin-top: 10px;")
+                    .pull-left
+                        span.btn.btn-primary.btn-sm.fileinput-button
+                            i.glyphicon.glyphicon-camera
+                            span Import image...
+                            input.fileupload(type="file",name="file",data-url="/image/decode")
+                .col-xs-12
+                    .pull-left.decode-controls.hidden
+                        button.btn.btn-sm.btn-primary.decode-button(style="margin-top: 10px;")
+                            i.glyphicon.glyphicon-resize-small
+                            | Decode
+                        .detection-notice
+                            .clearfix(style="margin-top: 5px;")
+                                | To improve detection, select a cropping area containing only the barcode.
+                            .clearfix(style="margin-top: 5px; margin-bottom: 5px;")
+                                | You can select an area by touching one corner, then dragging to the other corner.
+                .coupon-container.col-xs-12
+                .col-xs-12
+                    mixin product_summary_widget()
+                .file-preview.col-xs-12
+                    a
+                .file-contents.col-xs-12.hidden(style="margin-top: 10px;")
+                    a
+                p.hidden.decoding-result
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

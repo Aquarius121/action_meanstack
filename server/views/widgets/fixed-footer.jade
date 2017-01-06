@@ -1,0 +1,25 @@
+mixin fixed_footer()
+    .fixed-footer
+        .container-fluid
+            .pull-left
+                div(style="margin-top: 7px; margin-left: 5px;")
+                    a.btn-back(onclick="window.history.back();")
+                        i.fa.fa-arrow-left(style="zoom: 2;")
+            //-.pull-right
+                ul.nav.dickson-nav
+                    li.navbar-widget(style="cursor: pointer;margin-top: 0; border: none;")
+                        a.dropdown-toggle(data-toggle="dropdown")
+                            img(src="/img/logo2.png", style="margin-top: -3px; height: 36px; margin-right: 3px; background-color: #eee; padding: 2px; border-radius: 5px;")
+                            i.icon-caret-up
+                        ul.user-menu.pull-left.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-bottom-right(style="margin-top: -94px;")
+                            li
+                                a(href="tel:7408681611")
+                                    |LIVE Click to talk
+                            li
+                                a(href="/coming-attraction/view")
+                                    |LIVE Chat
+                            li
+                                a(href="/coming-attraction/view")
+                                    |LIVE Video
+                    //-a(href="tel:7408681611")
+                        img(src="/img/logo2.png", style="height: 36px; margin-right: 3px; margin-top: 3px; background-color: #eee; padding: 2px; border-radius: 5px;")

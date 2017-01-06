@@ -1,0 +1,32 @@
+include layout
+doctype html
+html
+    +head()
+        include ./widgets/product-import-table
+        include ./widgets/file-upload-widget
+        script(src="/js/brand-product-import.js")
+        script(src="/js/brand-product-importer.js")
+        script.
+            $(function() {
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'new Object();'};
+                var viewModel = new action.admin.brand.ProductImporterViewModel(brand._id);
+                brand_product_import_page.init(viewModel);
+                ko.applyBindings(viewModel);
+            });
+    +body()
+        .content-container
+            .page-content
+                h3.pull-left= "Import Products for "
+                    a(href="/brand/view/" + brand._id.toHexString())= brand.name
+                .clearfix
+                div(class="block" style="height:40px")
+                    div(style="margin-right:8px; margin-top: 8px;", class="product-upload-container pull-left")
+                    button(class="btn btn-sm btn-default", data-bind="click:addProduct", style="margin-right:8px; margin-top: 8px;") Add Product Row
+                    button.btn.btn-sm.btn-cancel.btn-cancel-import(style="margin-top: 8px; margin-right: 10px;") Cancel
+                br
+                div(data-bind="visible:importedData().length > 0")
+                    +product_import_table()
+                div(data-bind="visible:importComplete() == false") Click "upload file" to import an excel spreadsheet or csv of products.
+                div(data-bind="visible:importFailed") There was an error importing the file you selected - please try again and ensure that the columns are in the order expected.
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

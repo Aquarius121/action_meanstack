@@ -1,0 +1,107 @@
+.opt-ins-widget > .well,
+.favorites-widget > .well {
+    height: 120px;
+    margin-bottom: 0;
+    position: relative;
+    border-bottom: solid 1px #CCCCCC;
+}
+.opt-ins-widget img,
+.favorites-widget img {
+    max-width: 90px;
+    max-height: 90px;
+}
+.opt-ins-widget .image-container,
+.favorites-widget .image-container {
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    position: absolute;
+}
+.opt-ins-widget .opt-ins-info {
+    position: absolute;
+    left: 115px;
+    width: calc(100% - 135px);
+}
+.favorites-widget .favorites-info {
+    position: absolute;
+    left: 135px;
+    width: calc(100% - 165px);
+    height: 90px;
+}
+.opt-ins-widget .favorite-link {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(133, 133, 133);
+    font-size: 16px !important;
+}
+.favorites-widget .toggle-widget {
+    min-width: inherit;
+    padding: 0;
+}
+.favorites-widget .toggle-widget a {
+    color: rgb(16, 0, 255);
+}
+.favorites-widget .brand-link-container {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: calc(100% - 65px);
+}
+.opt-ins-widget .brand-link {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: calc(100% - 25px);
+}
+.favorites-widget .opt-container {
+    line-height: 1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.favorites-widget .bottom-line {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.opt-ins-widget .policy-link,
+.favorites-widget .brand-link {
+    max-height: 44px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(133, 133, 133);
+    font-size: 16px !important;
+}
+.user-opt-ins-container a.remove-opt {
+    color: #ff0000;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+/* removed because branding and product names need to persist there capitalization MOBACTION-359
+.user-favorites-container,
+.user-opt-ins-container a {
+    text-transform: lowercase;
+}*/
+.user-favorites-container a,
+.user-opt-ins-container a {
+    color: #000;
+}
+.user-favorites-container a.product-link {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.brand-products-container img.product-thumbnail
+{
+    height: 150px;
+}
+
+.pull-left.animated.flipInX img
+{
+    height: 200px;
+}

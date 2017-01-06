@@ -1,0 +1,59 @@
+include layout
+doctype html
+html
+    +head()
+        script(src='/js/tpl/flot/jquery.flot.min.js')
+        script(src='/js/widgets/charts/response-times-chart.js')
+        script(src='/js/response-times.js')
+        style.
+            .avg-chart-container {
+                height: 280px;
+            }
+            .chart-outer-container {
+                background-color: #fff;
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+            .long-running-responses-container {
+               margin-bottom: 25px;
+            }
+            .longest-running-responses-container {
+                margin-bottom: 25px;
+            }
+            .btn-clear-longest-responses,
+            .btn-clear-long-responses,
+            .btn-clear-response-times {
+                margin-top: -10px;
+                margin-left: 10px;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                h3.pull-left Response Times
+                .pull-right
+                    .clock-container
+                .clearfix
+                h5.pull-left Average Response Time (ms)
+                button.btn.btn-xs.btn-warning.btn-clear-response-times clear
+                .clearfix
+                .chart-outer-container
+                   .avg-chart-container
+                h5.pull-left Max Response Time (ms)
+                .clearfix
+                .chart-outer-container
+                   .max-chart-container
+                h5.pull-left Response Count
+                .clearfix
+                .chart-outer-container
+                    .response-count-chart-container
+
+                h5.pull-left Longest-Running Responses (Top 10)
+                button.btn.btn-xs.btn-warning.btn-clear-longest-responses clear
+                .clearfix
+                .longest-running-responses-container
+
+                h5.pull-left Long-Running Responses
+                button.btn.btn-xs.btn-warning.btn-clear-long-responses clear
+                .clearfix
+                .long-running-responses-container

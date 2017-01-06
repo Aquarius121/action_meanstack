@@ -1,0 +1,41 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/register.js")
+        style.
+            .profile-form-container select {
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                cursor: pointer;
+            }
+
+            .register-body {
+                background-color: #05d657;
+                color: #fff;
+                padding-bottom: 40px;
+            }
+            .profile-form-container a {
+                color: white;
+            }
+
+body.register-body
+        header.index-header
+            .container
+                .navbar
+                    a(href='/')
+                        img(src='/img/logo.png').navbar-brand
+                    .pull-right.button-container
+                        a(href='/login').pill login
+                        //-a(href='/register').pill register
+        .text-center.logo-jumbotron
+            img(src="/img/action_logo.png")
+        .centered-column
+            div(style="max-width: 500px; margin: auto; margin-top: 20px;")
+                .user-form-contents.profile-form-container
+            button.btn.btn-success.button-black.col-xs-12.create-button Register

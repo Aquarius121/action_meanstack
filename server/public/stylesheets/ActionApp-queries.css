@@ -1,0 +1,162 @@
+@charset "utf-8";
+/* ActionApp Media Queries */
+
+/************************ Mobile < 750 *****************************/
+@media only screen and (max-width:750px) {
+	body {
+		background: #ffffff;
+		font: 86%/138% 'Century Gothic', 'Muli', Arial, sans-serif;
+		color: #232323;
+		margin: 0;
+		padding: 0;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		margin-top: 4px;
+		margin-bottom: 8px;
+	}
+	h1 {
+		font-size: 22px;
+	}	
+	 h2 {
+		font-size: 16px;
+		font-weight: 400;
+	}
+	h3 {
+		font-size: 16px;
+		font-weight: 400;
+		color: #00be4c;
+/*		margin-top: 8px;
+*/		text-transform: uppercase;
+	}
+	h4 {
+		font-size: 16px;
+		font-weight: 400;
+		color: #ffffff;
+	}	
+	 #page-wrap {
+		 width: 98%;
+		 margin: 0 auto;
+	}
+	 .container {
+		 width: auto;
+		 margin: 0 auto;
+	}
+	 header {
+		 padding: 4px 10px 0px 10px;
+		 margin-bottom: 0px;
+		 height: auto;
+	}
+	.logo {
+		width: 200px;
+	}
+	/******* Mobile Menu ********/
+	header nav ul li {
+		display: inline;
+		margin-left: 0;
+	}
+	/******* video ********/	
+	#home-video { 
+		display: none;
+	}
+	#mobile-video {
+		display: block !important;
+	}
+	/*******************/
+	#jump-bar-nav {
+		padding: 10px 4px;
+		text-align: center;
+		font-size: 12px;
+	}
+	#jump-bar a {
+		padding-left: 4px;
+		padding-right: 4px;
+	}
+	#body-main1 {
+		background-color: #e7e7e7;
+		padding-right: 8px;
+		padding-left: 8px;
+		padding-top: 12px;
+	}
+	#body-main2 {
+		background-color: #e7e7e7;
+		padding-right: 8px;
+		padding-left: 8px;
+	}
+	.how-boxes {
+		display: block;
+		padding: 0;
+	}
+	.photos-l {
+		float: none;
+		width: 100%
+	}
+	.body-text-r {
+		float: none;
+		width: 100%;
+		padding-left: 0;
+	}
+	.body-text-r p {
+		margin-top: -4px;
+		margin-bottom: -2px;
+	}	
+	.body-text-r img {
+		padding-top: 8px;
+	}
+	.photos-r {
+		float: none;
+		width: 100%;
+		padding-left: 0;
+	}
+	.body-text-l {
+		display: none;
+	}
+	.body-text-l-2 {
+		display: block;
+	}
+	.body-text-l-2 p {
+		margin-top: -4px;
+		margin-bottom: -2px;
+	}
+	.body-text-l-2 img {
+		padding-top: 8px;
+	}
+	.photo-scale {
+		max-width: 320px;
+		height: auto;
+	}
+	.download-box {
+		padding: 8px;
+	}
+	.download-photo {
+		display: none;
+	}
+	.download-text {
+		float: none;
+		width: 100%;
+	}
+	.about-box {
+		padding: 8px;	
+	}
+	/* Footer */
+	footer {
+	padding: 8px;
+	}
+	footer p {
+		font-size: 11px;
+	}
+}
+
+/************************ Tablets 751-989 *****************************/
+@media screen and (min-width:751px) and (max-width:989px) {
+	body {
+		background: #ffffff;
+	}
+	 #page-wrap {
+		 width: 98%;
+		 margin: 0 auto;
+	}
+	 .container {
+		 width: auto;
+		 margin: 0 auto;
+	}
+}

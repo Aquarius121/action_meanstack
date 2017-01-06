@@ -1,0 +1,125 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/fileupload/jquery.fileupload.css')
+        script(src="/js/tpl/fileupload/jquery.ui.widget.js")
+        script(src="/js/tpl/fileupload/jquery.fileupload.min.js")
+        script(src="/js/tpl/fileupload/jquery.iframe-transport.js")
+        script(src="/js/tpl/beautify.js")
+        script(src="/js/tpl/beautify-css.js")
+        script(src="/js/tpl/beautify-html.js")
+        script.
+            var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+        script(src="/js/admin-dashboard.js")
+        style.
+            .curation-container button {
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+            .dash-button:not(:first-child) {
+                margin-left: 20px;
+            }
+            .dash-button {
+                width: 120px;
+                height: 80px;
+                color: white;
+                text-align: center;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .dash-button > i {
+                margin-top: 20px;
+            }
+            .dash-button:first-child,
+            .dash-button:nth-child(2),
+            .dash-button:nth-child(3) {
+                background-color: #2F4EC8;
+            }
+            .dash-button:hover {
+                background-color: #1182F0 !important;
+            }
+    +body()
+        .content-container
+            .page-content
+                h3 Dashboard
+                .well(style="margin-top: 20px;")
+                    .dash-button(data-link="/system/response-times/view")
+                        i.fa.fa-clock-o.fa-2x
+                        div response times
+                    .dash-button(data-link="/system/logs/view")
+                        i.fa.fa-newspaper-o.fa-2x
+                        div system logs
+                    .dash-button(data-link="/system/resources/view")
+                        i.fa.fa-database.fa-2x
+                        div system resources
+                .well
+                    h4 Job Management
+                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                    button.btn.btn-warning.btn-sm.database-backup(title="Forces a kickoff of the database backup job.  Will diminish site performance significantly while running")
+                        i.icon-bar-chart
+                        |Take database snapshot
+                    button.btn.btn-success.btn-sm.manual-report-process(style="margin-left: 5px;", title="Forces a kickoff of the report-generation job.")
+                        i.icon-bar-chart
+                        |Start report processing job
+                    button.btn.btn-warning.btn-sm.remove-unbranded(style="margin-left: 5px;", title="Deletes any products not associated with a brand from the system.  Does not affect SOLR.")
+                        i.icon-barcode
+                        |Remove all unbranded products
+                    button.btn.btn-danger.btn-sm.rebuild-solr-indices(style="margin-left: 5px;", title="Wipes SOLR indices and restores them.  Products are unsearchable while processing.")
+                        i.icon-barcode
+                        |Rebuild SOLR indices
+                    button.btn.btn-warning.btn-sm.optimize-solr(style="margin-left: 5px;", title="Removes duplicate documents from SOLR for faster processing.  Probably not needed.")
+                        i.icon-barcode
+                        |Optimize SOLR indices
+                    button.btn.btn-success.btn-sm.calculate-ages(style="margin-left: 5px;", title="Recalculates the ages and age groups for all users.")
+                        i.icon-barcode
+                        |Recalculate user ages
+                .well(style="margin-top: 20px;")
+                    h4 Misc
+                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                    button.btn.btn-success.btn-sm.delete-reports(style="margin-left: 5px; margin-right: 5px;", title="Removes all reports generated since the provided date.")
+                        i.icon-hdd
+                        |Delete reports...
+                    span.btn.btn-warning.btn-sm.fileinput-button.postal-code-fileinput-button
+                        i.glyphicon.glyphicon-marker
+                        span Import postal data...
+                        input.fileupload.postal-fileupload(type="file",name="file")
+                    button.btn.btn-danger.btn-sm.delete-data(style="margin-left: 5px;", title="Removes all data. Push only if you're out for blood.")
+                        i.icon-hdd
+                        |Delete everything
+                    button.btn.btn-success.btn-sm.dotify(style="margin-left: 5px;", title="Formats HTML for doT.")
+                        i.icon-hdd
+                        |doTify
+                    button.btn.btn-success.btn-sm.recompute-brand-product-counts(style="margin-left: 5px;", title="Recounts product counts for each brand.")
+                        i.icon-hdd
+                        |Recompute brand product counts
+                .well(style="margin-top: 20px;").hidden
+                    h4 Coupon Insert
+                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                    label EAN:
+                    input(type="text", style="margin-bottom: 10px; margin-left: 5px;").ean-input
+                    span.btn.btn-success.btn-sm.fileinput-button.coupon-fileinput-button(style="margin-left: 10px;")
+                        i.glyphicon.glyphicon-camera
+                        span Import coupon image...
+                        input.fileupload.coupon-fileupload(type="file",name="file")
+                    span(style="margin-left: 10px;")
+                        label(style="margin-right: 5px;") Aggressive
+                        input(type="radio", name="coupon_type", value="aggressive", checked=true)
+                        label(style="margin-left: 20px; margin-right: 5px;") Moderate
+                        input(type="radio", name="coupon_type", value="moderate")
+                .well(style="margin-top: 20px;").hidden
+                    h4 NLP Training
+                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                    label Phrase:
+                    input(type="text", style="margin-bottom: 10px; margin-left: 5px; width: 200px;").nlp-phrase-input
+                    span(style="margin-left: 10px;")
+                        label(style="margin-right: 5px;") Positive
+                        input(type="radio", name="sentiment", value="positive", checked=true)
+                        label(style="margin-left: 20px; margin-right: 5px;") Negative
+                        input(type="radio", name="sentiment", value="negative")
+                        label(style="margin-left: 20px; margin-right: 5px;") Neutral
+                        input(type="radio", name="sentiment", value="neutral")
+                        button.btn.btn-warning.btn-submit-nlp.btn-sm(style="margin-left: 20px;") Train
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

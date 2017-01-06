@@ -1,0 +1,76 @@
+include layout
+
+doctype html
+html
+    +head()
+        script(src="/js/tpl/purl.js")
+        -if(typeof(brand) != 'undefined')
+            style.
+                !{brand.styling};
+        style.
+            .question {
+                padding: 10px;
+            }
+            .ak5-container {
+                text-align: center;
+            }
+            .ak5-container > form > .form-group {
+                display: inline-flex;
+                min-width: 300px;
+            }
+            .ak5-container > form > .form-group > button {
+                margin-left: 5px;
+                background-image: none;
+                background-color: #05d657;
+                border: none;
+            }
+
+            .utterance-container {
+                margin-top: 15px;
+            }
+            .suggestion-container {
+                margin-top: 20px;
+            }
+            .utterance-container > a,
+            .suggestion-container > a {
+                cursor: pointer;
+            }
+            .suggestion-container > .clearfix {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .rating-option > i.selected {
+                width: 49px;
+                height: 50px;
+                border-radius: 34px;
+                color: white !important;
+            }
+            .rating-option > i.selected.fa-frown-o {
+                background-color: red;
+            }
+            .rating-option > i.selected.fa-meh-o {
+                background-color: orange;
+            }
+            .rating-option > i.selected.fa-smile-o {
+                background-color: #00dd00;
+            }
+        script(src="/js/product-faq.js")
+        script(type="text/javascript").
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var product = !{typeof(product) != 'undefined' ? JSON.stringify(product) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+
+                product_faq_page.init(caller, product, brand);
+            });
+    +body()
+        .content-container
+            .page-content
+                .container
+                    .product-result
+                    .faq-container
+                    .clearfix
+                    .text-center
+                        .rating-container
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()

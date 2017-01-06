@@ -1,0 +1,16 @@
+include ../widgets/brand-select
+
+mixin modal_select_brand()
+    .modal-select-brand.modal.fade(role="dialog")
+        .modal-dialog(style="background-color: #fff;")
+            .modal-header
+                button.close(data-dismiss='modal') x
+                h4
+            .modal-body
+                p
+                +brand_select('', 'width: 100%;')
+            .modal-footer
+                button(data-dismiss="modal").cancel.btn.btn-warning Cancel
+                button.submit.btn.btn-success Ok
+
+script(src='/js/modals/select-brand-modal.js', type='text/javascript')

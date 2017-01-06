@@ -1,0 +1,15 @@
+include ./table-pager
+include ./sortable-table
+
+mixin brand_owners_table()
+    table.table.table-bordered.table-striped.tablesorter-hover.brand-owners-table(style="display: none;")
+        thead
+            tr
+                th Name
+                th Link
+        tbody
+    mixin table_pager()
+
+block append scripts
+    script(src='/js/tpl/purl.js', type='text/javascript')
+    script(src='/js/widgets/tables/brand-owners-table.js', type='text/javascript')

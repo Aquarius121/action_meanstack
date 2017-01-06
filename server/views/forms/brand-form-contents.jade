@@ -1,0 +1,105 @@
+block append scripts
+    include ../widgets/file-upload-widget
+    link(rel='stylesheet', href='/stylesheets/bootstrap-timepicker.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-datepicker.min.css')
+    script(src="/js/tpl/jquery.elastic.source.js")
+    script(src='/js/tpl/bootstrap-timepicker.min.js')
+    script(src='/js/tpl/bootstrap-datepicker.min.js')
+    script(src='/js/tpl/moment.min.js')
+    script(src='/js/forms/brand.js')
+
+mixin brand_form_hours(day_name, day_info)
+    label.col-xs-12.col-sm-3.control-label=day_name
+    .col-xs-12.col-sm-9
+        .row
+            .col-xs-6
+                .input-group.bootstrap-timepicker
+                    input.input-small.form-control(type="text", class=day_name.toLowerCase() + "_start", value=day_info ? day_info.start : "")
+                    span.input-group-addon
+                        i.icon-time
+            .col-xs-6
+                .input-group.bootstrap-timepicker
+                    input.input-small.form-control(type="text", class=day_name.toLowerCase() + "_end", value=day_info ? day_info.end : "")
+                    span.input-group-addon
+                        i.icon-time
+
+mixin brand_form_contents(brand)
+    .form-group
+        label.col-xs-12.col-sm-3.control-label CRM Email Endpoint
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The email address of the CRM system used when customer feedback is shared.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            input.form-control.crm-email-link(value=brand.crm_email_endpoint)
+    .form-group
+        .col-xs-12.col-sm-3
+        .col-xs-12.col-sm-9
+            hr
+    .form-group
+        label.col-xs-12.col-sm-3.control-label URL
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The brand's main website.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            input.form-control.brand-link(value=brand.link)
+    .form-group
+        label.col-xs-12.col-sm-3.control-label Logo URL
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="A link to the brand's logo.  It can be uploaded in the content panel.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            div(style="margin-right: 90px;")
+                input.form-control.brand-logo(value=brand.logo_url)
+            .logo-upload-container(style="width: 80px; position: absolute; right: 15px; top: 0;")
+    .form-group
+        label.col-xs-12.col-sm-3.control-label Privacy Policy URL
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The brand's privacy policy or terms and conditions.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            input.form-control.privacy-policy-url(value=brand.privacy_policy_url)
+    .form-group
+        label.col-xs-12.col-sm-3.control-label Minimum Age
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The minimum age requirement for a user to view the brand.  Leave blank if there is no age restriction.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            input.form-control.minimum-age(value=brand.minimum_age, type="number")
+    .form-group
+        label.col-xs-12.col-sm-3.control-label Auto-Message
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="This message is displayed in a dialog when any of this brand's products are scanned or viewed.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            textarea.form-control.auto-message(name="brand-auto-message")= brand.auto_message
+    .form-group
+        label.col-xs-12.col-sm-3.control-label Auto-Message Expiration
+            div.help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The auto-message is displayed until the provided date.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9
+            input.form-control.auto-message-expiration.datepicker(name="brand-auto-message-expiration", style="width: 100px; padding-left: 10px;")
+    .form-group
+        .col-xs-12.col-sm-3
+        .col-xs-12.col-sm-9
+            hr
+    .form-group
+        label.col-xs-12.col-sm-3.control-label Operating Hours (GMT)
+            div.help-me-widget.ui-tooltip(data-placement="bottom",data-original-title="Hours during which live help can be obtained.  Time is to be entered in GMT.")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-12.col-sm-9(style="padding-top: 7px")
+            input(type="checkbox",style="margin-right: 5px;",checked=brand.operating_hours).set-hours
+            |Define Operating Hours
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Monday", brand.operating_hours ? brand.operating_hours.monday : undefined)
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Tuesday", brand.operating_hours ? brand.operating_hours.tuesday : undefined)
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Wednesday", brand.operating_hours ? brand.operating_hours.wednesday : undefined)
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Thursday", brand.operating_hours ? brand.operating_hours.thursday : undefined)
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Friday", brand.operating_hours ? brand.operating_hours.friday : undefined)
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Saturday", brand.operating_hours ? brand.operating_hours.saturday : undefined)
+    .form-group.hours-fields(style="display: none;")
+        +brand_form_hours("Sunday", brand.operating_hours ? brand.operating_hours.sunday : undefined)
+    .form-group
+        label.col-xs-6.col-sm-3.control-label Is Participating?
+            div.help-me-widget.ui-tooltip(data-placement="bottom",data-original-title="A flag indicates whether brand participates or not")
+                i.fa.fa-question(style="margin-left: -1px;")
+        .col-xs-6.col-sm-9(style="padding-top: 7px")
+            input(type="checkbox",style="margin-right: 5px;",checked=brand.participating).set-participating

@@ -1,0 +1,19 @@
+mixin sidebar()
+    ul.nav(style="margin-top: 5px;")
+        li(class=(url=="/" ? "active" : ""))
+            a(href="/")
+                i.fa.fa-home(style="margin-right: 10px;")
+                | Home
+        -if(typeof(caller) != 'undefined')
+            li(class=(url=="/products/view" ? "active" : ""))
+                a(href="/products/view")
+                    i.fa.fa-beaker(style="margin-right: 10px;")
+                    | Products
+            li(class=(url=="/brands/view" ? "active" : ""))
+                a(href="/brands/view")
+                    i.fa.fa-picture(style="margin-right: 10px;")
+                    | Brands
+            li(class=(url=="/contacts/view" ? "active" : ""))
+                a(href="/contacts/view")
+                    i.fa.fa-phone(style="margin-right: 10px;")
+                    | Contacts

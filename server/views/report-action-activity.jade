@@ -1,0 +1,94 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/bootstrap-datepicker.min.css')
+        script(src='/js/tpl/highcharts.js')
+        script(src='/js/tpl/bootstrap-datepicker.min.js')
+        script(src='/js/widgets/date-range-widget.js')
+
+        include ./widgets/sortable-table
+        include ./widgets/brand-select
+        script(src='/js/widgets/reports/factor-by-factor-drilldown-chart.js')
+        script(src='/js/widgets/reports/factor-by-factor-chart.js')
+        script(src="/js/widgets/reports/messages-by-brand-chart.js")
+        script(src="/js/widgets/reports/messages-by-type-for-brand-chart.js")
+        script(src="/js/widgets/reports/messages-by-product-chart.js")
+        script(src="/js/widgets/reports/messages-by-brand-summary-table.js")
+        script(src="/js/report-action-activity.js")
+
+        style.
+            .big-chart-container-wrapper {
+                width: 500px;
+                height: 350px;
+            }
+            .big-chart-container-wrapper > .chart-container {
+                width: 500px;
+                height: 300px;
+            }
+            .chart-container-wrapper {
+                width: 300px;
+                height: 250px;
+            }
+            .chart-container-wrapper > .chart-container {
+                width: 300px;
+                height: 200px;
+            }
+            .control-panel {
+                position: fixed;
+                top: 100px;
+                text-transform: lowercase;
+            }
+            .drilldown {
+                text-transform: lowercase !important;
+            }
+            .contacts-by-brand-summary-container {
+                width: 400px;
+                max-height: 300px;
+                overflow-y: auto;
+            }
+
+    +body()
+        .content-container
+            .page-content
+                -if(caller.role == 'brand-manager')
+                    .managed-brands.hidden(data-brands=caller.managed_brands.toString())
+                h2.text-center=title
+                .text-center Note: Statistics are not yet available for the current day
+                .col-xs-4.col-md-3
+                    .control-panel
+                        form.pull-left(style="margin-bottom: 20px;")
+                            .date-range-container
+                            .clearfix
+                                .product-select-container
+                        .clearfix
+                        | Drilldown Property
+                        .clearfix
+                        .brand-filter
+                            select.drilldown(style="margin-top: 5px;")
+                                option(value="age") Age
+                                option(value="gender") Gender
+                                option(value="state") State
+                                option(value="zip") Zip
+                            .clearfix(style="margin-bottom: 15px;")
+                            | Brand Filter
+                        .clearfix
+                        +brand_select()
+                .col-xs-8.col-md-9
+                    h3 Contacts by Brand
+                    .well.pull-left.contacts-by-brand-container(style="margin-right: 20px;").hidden
+                        .contacts-by-brand.chart-container-wrapper.text-center
+                            .chart-container.pull-left
+                    .well.pull-left.contacts-by-brand-and-type-container(style="margin-right: 20px;").hidden
+                        .contacts-by-brand-and-type.chart-container-wrapper.text-center
+                            .chart-container.pull-left
+                    .pull-left.contacts-by-brand-summary-container
+                    .clearfix
+                    hr
+                    h3 Contacts by Product
+                    .well.pull-left
+                        .contacts-by-product.big-chart-container-wrapper.text-center.hidden
+                            .chart-container.pull-left
+                    .clearfix
+                .clearfix

@@ -1,0 +1,76 @@
+li.navbar-widget(style="cursor: pointer;")
+    a.dropdown-toggle(data-toggle="dropdown")
+        -if(typeof(caller.facebookData) != 'undefined' && typeof(caller.facebookData.picture) != 'undefined' && typeof(caller.facebookData.picture.data) != 'undefined' && typeof(caller.facebookData.picture.data.url) != 'undefined')
+            img.nav-user-photo(src=caller.facebookData.picture.data.url)
+        -else
+            img.nav-user-photo(src="http://www.gravatar.com/avatar/" + caller.gravatar)
+        span.user-info
+            small
+                |Hello,
+            small= caller.first_name
+        i.fa.fa-caret-down
+    ul.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer
+        li(class=(url=="/" ? "active" : ""))
+            a(href="/")
+                -if(caller.role == 'admin')
+                    i.fa.fa-dashboard(style="margin-right: 10px;")
+                    | Dashboard
+                -else
+                    i.fa.fa-home(style="margin-right: 10px;")
+                    | Home
+        -if(typeof(caller) != 'undefined')
+            -if(caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager')
+                li(class=(url=="/products/view" ? "active" : ""))
+                    a(href="/products/view")
+                        i.fa.fa-gift(style="margin-right: 10px;")
+                        | Products
+            li(class=(url=="/brands/view" ? "active" : ""))
+                a(href="/brands/view")
+                    i.fa.fa-image(style="margin-right: 10px;")
+                    | Brands
+            -if(caller.role == 'admin' || caller.role == 'action-admin')
+                li(class=(url=="/brand-owners/view" ? "active" : ""))
+                    a(href="/brand-owners/view")
+                        i.fa.fa-briefcase(style="margin-right: 10px;")
+                        | Brand Owners
+            -if(caller.role == 'admin' || caller.role == 'action-admin')
+                li(class=(url=="/users/view" ? "active" : ""))
+                    a(href="/users/view")
+                        i.fa.fa-group(style="margin-right: 10px;")
+                        | Users
+            -if(caller.role == 'admin' || caller.role == 'action-admin')
+                li(class=(url=="/config/view" ? "active" : ""))
+                    a(href="/config/view")
+                        i.fa.fa-globe(style="margin-right: 10px;")
+                        | Site Config
+            hr
+            -if(caller.role == 'admin' || caller.role == 'action-admin' || caller.role == 'brand-manager')
+                li(class=(url=="/report/action-activity/view" ? "active" : ""))
+                    a(href="/report/action-activity/view")
+                        i.fa.fa-bar-chart(style="margin-right: 10px;")
+                        | Action Activity Report
+            -if(caller.role == 'admin' || caller.role == 'action-admin')
+                li(class=(url=="/report/action-statistics/view" ? "active" : ""))
+                    a(href="/report/action-statistics/view")
+                        i.fa.fa-bar-chart(style="margin-right: 10px;")
+                        | Action Statistics Report
+            li(class=(url=="/report/brand-usage/view" ? "active" : ""))
+                a(href="/report/user-profile/view")
+                    i.fa.fa-bar-chart(style="margin-right: 10px;")
+                    | User Profile Report
+            -if(caller.role == 'admin' || caller.role == 'action-admin')
+                hr
+                li(class=(url=="/messages/errors/view" ? "active" : ""))
+                    a(href="/messages/errors/view")
+                        i.fa.fa-envelope(style="margin-right: 10px;")
+                        | Message Errors
+                -if(caller.role == 'admin')
+                    li(class=(url=="/messages/view" ? "active" : ""))
+                        a(href="/messages/view")
+                            i.fa.fa-suitcase(style="margin-right: 10px;")
+                            | Messages
+            //-if(caller.role == 'admin')
+                li(class=(url=="/contacts/view" ? "active" : ""))
+                    a(href="/contacts/view")
+                        i.fa.fa-phone(style="margin-right: 10px;")
+                        | Contacts

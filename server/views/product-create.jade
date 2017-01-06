@@ -1,0 +1,68 @@
+include layout
+
+doctype html
+html
+    +head()
+        link(rel='stylesheet', href='/stylesheets/bootstrap-tags.css')
+        script(src='/js/tpl/bootstrap-tags.min.js', type='text/javascript')
+        include ./forms/product-form-contents
+        script(src="/js/product-create.js")
+        script.
+            $(function() {
+                var caller = !{typeof(caller) != 'undefined' ? JSON.stringify(caller) : 'undefined'};
+                var brand = !{typeof(brand) != 'undefined' ? JSON.stringify(brand) : 'undefined'};
+                product_create_page.init(brand);
+            });
+    +body()
+        .content-container
+            .page-content
+                h3 Product Info
+                //- margin-top to show off the box-shadow
+                .well(style="margin-top: 20px;")
+                    form.form-horizontal(role="form")
+                        .form-group
+                            label.col-xs-3.col-sm-3.control-label Name
+                            .col-xs-9
+                                input.form-control.product-name
+                        .form-group
+                            label.col-xs-3.col-sm-3.control-label EAN-8
+                                .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The 8-digit EAN number for this product.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                            .col-xs-9
+                                input.form-control.product-ean8
+                        .form-group
+                            label.col-xs-3.col-sm-3.control-label EAN-13
+                                .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The 13-digit EAN number for this product.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                            .col-xs-9
+                                input.form-control.product-ean13
+                        .form-group
+                            label.col-xs-3.col-sm-3.control-label UPC-A
+                                .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The 12-digit UPC-A number for this product.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                            .col-xs-9
+                                input.form-control.product-upca
+                         .form-group
+                            label.col-xs-3.col-sm-3.control-label UPC-E
+                                .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="The 6-digit UPC-E number for this product.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                            .col-xs-9
+                                input.form-control.product-upce
+                         .form-group
+                            label.col.xs-3.col-sm-3.control-label Generate Check Digit
+                                .help-me-widget.ui-tooltip(data-placement="bottom", data-original-title="Select if you are missing the check digit for your UPC.")
+                                    i.fa.fa-question(style="margin-left: -1px;")
+                                 input.generate(type="checkbox", style="margin-top: 10px; margin-left: 10px;", checked = false)
+                .col-xs-12
+                    .pull-left
+                        div(style="width: 70px; height: 1px;")
+                    .pull-right(style="margin-top: 5px;")
+                        button.btn.btn-danger.btn-barcode-validate Validate
+                        button.btn.btn-success.btn-create-product(style="margin-left: 10px;")  Create
+                        button.btn.btn-cancel.btn-cancel-product(style="margin-left: 10px;") Cancel
+                    .text-center
+                        a.barcode-compute(style="cursor: pointer;") Barcode in a different format?
+
+                .clearfix
+        -if(typeof(caller) == 'undefined' || caller.role == 'user')
+            +fixed_footer()
